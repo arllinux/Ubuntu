@@ -1,0 +1,129 @@
+#=======================================
+Comparatif commandes gestion des paquets
+#=======================================
+
+Les packages RPM					Les packages DEB
+'-------------------------------------------------------------------------------------------------'
+Installation :
+--------------
+Sans gestion des dépendances
+# rpm -ivh nom_du_package.rpm				# dpkg -i nom_du_package.deb
+							# dpkg --install nom_du_package.deb
+Teste si l'installation va réussir
+(sinon signale les dépendances manquantes)
+# rpm -ivh --test nom_du_package.rpm
+
+Si déjà installé 
+package nom_du_package is already installed 
+'-------------------------------------------------------------------------------------------------'
+Avec gestion des dépendances
+# yum install vim					# apt-get install vim
+'-------------------------------------------------------------------------------------------------'
+Simulation d'installation
+							# apt-get install --dry-run nom_du_package
+							# apt-get install -s nom_du_package
+'-------------------------------------------------------------------------------------------------'
+
+Suppression :
+-------------
+# rpm -e nom_du_package					# dpkg --remove
+# yum erase vim						# apt-get remove nom_du_package
+							# apt-get remove --purge nom_du_package
+'-------------------------------------------------------------------------------------------------'
+
+Mise à jour paquets
+-------------------
+
+'-------------------------------------------------------------------------------------------------'
+
+Opérations diverses
+-------------------
+Reconfigurer
+#  ----							# dpkg --reconfigure nom_du_package
+'-------------------------------------------------------------------------------------------------'
+Suppression paquets plus disponibles
+#  ----							# apt-get autoclean
+'-------------------------------------------------------------------------------------------------'
+
+Mises à jour :
+--------------
+Mise à jour base donnée paquets
+#  -----						# apt-get update
+'-------------------------------------------------------------------------------------------------'
+Mise à jour paquets
+# yum update						# apt-get update
+							# apt-get dist-upgrade
+'-------------------------------------------------------------------------------------------------'
+Liste des paquets qui vont être mis à jour
+# yum check-update					# apt-get -u upgrade
+'-------------------------------------------------------------------------------------------------'
+Nettoyage cache paquets
+# yum clean all						# apt-get clean
+'-------------------------------------------------------------------------------------------------'
+
+Interrogation :
+---------------
+Rechercher un paquet dans la base
+# yum search mot_cle					# apt-cache search mot_cle
+'-------------------------------------------------------------------------------------------------'
+Mise à jour :
+# rpm -Uvh mpg123-0_59p-1_i386.rpm			# dpkg --install mpg123-0_59p-1_i386.deb		
+'-------------------------------------------------------------------------------------------------'
+Savoir si paquetage installé
+# rpm -q mpg123-0_59p-1_i386.rpm			# dpkg -l vim
+
+
+
+Détails sur un package particulier :
+# rpm -q mpg123-0_59p-1_i386.rpm			# dpkg --list | grep vim			
+							# apt-cache show vim
+'-------------------------------------------------------------------------------------------------'
+Afficher les dépendances d'un paquet
+							# apt-cache depends vim
+'-------------------------------------------------------------------------------------------------'
+Paquetage auquel appartient le fichier
+							# apt-file search vim
+'-------------------------------------------------------------------------------------------------'
+Lite des fichiers d'un paquetage :
+# rpm -qf vim						# dpkg --search /usr/bin/vim
+							# apt-file list vim
+'-------------------------------------------------------------------------------------------------'
+Liste des fichiers de documentation d'un paquetage
+# rpm -qd vim
+'-------------------------------------------------------------------------------------------------'
+Tous les packages existants :
+# rpm -qa						# dpkg --list
+'-------------------------------------------------------------------------------------------------'
+Nombre de paquets installés :
+# rpm -qa | wc -l					# dpkg --list | wc -l
+'-------------------------------------------------------------------------------------------------'
+Packages contenant un fichier particulier :
+# rpm -f NomDuFichier
+'-------------------------------------------------------------------------------------------------'
+Informations sur un package :
+# rpm -p NomDuPackage
+'-------------------------------------------------------------------------------------------------'
+
+Vérification :
+--------------
+Différences package installé et le package tel qu'il devrait être.
+# rpm -Vf NomDuFichier
+'-------------------------------------------------------------------------------------------------'
+Vérifier tous les packages :
+# rpm -Va
+'-------------------------------------------------------------------------------------------------'
+Vérifier un package particulier :
+# rpm -Vp NomDuPackage
+'-------------------------------------------------------------------------------------------------'
+
+
+Lorsqu'il n'y a pas d'erreur, le système n'affiche rien. Si par contre une erreur a été détectée dans le package installé,
+le système renvoie une chaîne de huit caractères indiquant le type d'erreur. Voici la signification des caractères
+D: Périphérique
+G: Groupe
+L: Lien symbolique
+M: Mode (Permissions)
+T: date du fichier
+S: Taille du fichier
+U: Utilisateur
+

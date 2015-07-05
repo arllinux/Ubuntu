@@ -1,0 +1,478 @@
+Optimiser Ubuntu
+
+#===================================================#
+Supprimer tous les paquets téléchargés et installés : 
+sudo apt-get clean
+#===================================================#
+
+---> Avant <---
+
+[root@prunelle:/var/cache/apt/archives] # ls
+abiword_2.8.2-2ubuntu1.1_i386.deb
+abiword-common_2.8.2-2ubuntu1.1_all.deb
+abiword-plugin-grammar_2.8.2-2ubuntu1.1_i386.deb
+abiword-plugin-mathview_2.8.2-2ubuntu1.1_i386.deb
+apparmor_2.5.1-0ubuntu0.10.04.3_i386.deb
+apparmor-utils_2.5.1-0ubuntu0.10.04.3_i386.deb
+app-install-data-partner_12.10.04.4_all.deb
+apt_0.7.25.3ubuntu9.4_i386.deb
+aptdaemon_0.11+bzr345-0ubuntu4.1_all.deb
+apt-transport-https_0.7.25.3ubuntu9.4_i386.deb
+apturl_0.4.1ubuntu4.1_all.deb
+apturl-common_0.4.1ubuntu4.1_all.deb
+apt-utils_0.7.25.3ubuntu9.4_i386.deb
+at_3.1.11-1ubuntu5.1_i386.deb
+autopano-sift_2.4-0ubuntu10_all.deb
+avahi-autoipd_0.6.25-1ubuntu6.2_i386.deb
+avahi-daemon_0.6.25-1ubuntu6.2_i386.deb
+avahi-utils_0.6.25-1ubuntu6.2_i386.deb
+base-files_5.0.0ubuntu20.10.04.3_i386.deb
+bind9-host_1%3a9.7.0.dfsg.P1-1ubuntu0.2_i386.deb
+binutils_2.20.1-3ubuntu7.1_i386.deb
+bogofilter_1.2.1-0ubuntu1.1_i386.deb
+bogofilter-bdb_1.2.1-0ubuntu1.1_i386.deb
+bogofilter-common_1.2.1-0ubuntu1.1_all.deb
+brasero_2.30.2-0ubuntu1.1_i386.deb
+brasero-common_2.30.2-0ubuntu1.1_all.deb
+bsdutils_1%3a2.17.2-0ubuntu1.10.04.2_i386.deb
+build-essential_11.4build1_i386.deb
+bzip2_1.0.5-4ubuntu0.1_i386.deb
+checkinstall_1.6.1-10_i386.deb
+compiz_1%3a0.8.4-0ubuntu15.3_all.deb
+compiz-core_1%3a0.8.4-0ubuntu15.3_i386.deb
+compiz-gnome_1%3a0.8.4-0ubuntu15.3_i386.deb
+compiz-plugins_1%3a0.8.4-0ubuntu15.3_i386.deb
+conky_1.8.0-1ubuntu1_all.deb
+conky-all_1.8.0-1ubuntu1_i386.deb
+consolekit_0.4.1-3ubuntu2_i386.deb
+coreutils_7.4-2ubuntu3_i386.deb
+cups_1.4.3-1ubuntu1.3_i386.deb
+cups-bsd_1.4.3-1ubuntu1.3_i386.deb
+cups-client_1.4.3-1ubuntu1.3_i386.deb
+cups-common_1.4.3-1ubuntu1.3_all.deb
+cups-driver-gutenprint_5.2.5-0ubuntu1.1_i386.deb
+dbus_1.2.16-2ubuntu4.2_i386.deb
+dbus-x11_1.2.16-2ubuntu4.2_i386.deb
+desktopcouch_0.6.4-0ubuntu3.2_all.deb
+dhcp3-client_3.1.3-2ubuntu3.2_i386.deb
+dhcp3-common_3.1.3-2ubuntu3.2_i386.deb
+dmsetup_2%3a1.02.39-1ubuntu4.1_i386.deb
+dnsmasq-base_2.52-1ubuntu0.1_i386.deb
+dnsutils_1%3a9.7.0.dfsg.P1-1ubuntu0.2_i386.deb
+dpkg_1.15.5.6ubuntu4.5_i386.deb
+dpkg-dev_1.15.5.6ubuntu4.5_all.deb
+e2fslibs_1.41.11-1ubuntu2.1_i386.deb
+e2fsprogs_1.41.11-1ubuntu2.1_i386.deb
+empathy_2.30.3-0ubuntu1_i386.deb
+empathy-common_2.30.3-0ubuntu1_all.deb
+enblend_3.2+dfsg-3_i386.deb
+enfuse_3.2+dfsg-3_i386.deb
+erlang-base_1%3a13.b.3-dfsg-2ubuntu2.1_i386.deb
+erlang-crypto_1%3a13.b.3-dfsg-2ubuntu2.1_i386.deb
+erlang-inets_1%3a13.b.3-dfsg-2ubuntu2.1_i386.deb
+erlang-mnesia_1%3a13.b.3-dfsg-2ubuntu2.1_i386.deb
+erlang-public-key_1%3a13.b.3-dfsg-2ubuntu2.1_i386.deb
+erlang-runtime-tools_1%3a13.b.3-dfsg-2ubuntu2.1_i386.deb
+erlang-ssl_1%3a13.b.3-dfsg-2ubuntu2.1_i386.deb
+erlang-syntax-tools_1%3a13.b.3-dfsg-2ubuntu2.1_i386.deb
+erlang-xmerl_1%3a13.b.3-dfsg-2ubuntu2.1_i386.deb
+evince_2.30.3-0ubuntu1.2_i386.deb
+evolution_2.28.3-0ubuntu10.2_i386.deb
+evolution-common_2.28.3-0ubuntu10.2_all.deb
+evolution-plugins_2.28.3-0ubuntu10.2_i386.deb
+exiv2_0.19-1_i386.deb
+fakeroot_1.14.4-1ubuntu1_i386.deb
+fglrx-modaliases_2%3a8.723.1-0ubuntu5_i386.deb
+firefox_3.6.17+build3+nobinonly-0ubuntu0.10.04.1_i386.deb
+firefox-branding_3.6.17+build3+nobinonly-0ubuntu0.10.04.1_i386.deb
+firefox-gnome-support_3.6.17+build3+nobinonly-0ubuntu0.10.04.1_i386.deb
+flashplugin-installer_10.3.181.22ubuntu0.10.04.1_i386.deb
+freeglut3_2.6.0-0ubuntu2_i386.deb
+fuse-utils_2.8.1-1.1ubuntu3.1_i386.deb
+g++_4%3a4.4.3-1ubuntu1_i386.deb
+g++-4.4_4.4.3-4ubuntu5_i386.deb
+gdebi_0.6.0ubuntu2_all.deb
+gdebi-core_0.6.0ubuntu2_all.deb
+gdm_2.30.2.is.2.30.0-0ubuntu5.2_i386.deb
+ghostscript_8.71.dfsg.1-0ubuntu5.3_i386.deb
+ghostscript-cups_8.71.dfsg.1-0ubuntu5.3_i386.deb
+ghostscript-x_8.71.dfsg.1-0ubuntu5.3_i386.deb
+gimp_2.6.8-2ubuntu1.2_i386.deb
+gimp-data_2.6.8-2ubuntu1.2_all.deb
+gnome-screensaver_2.30.0-0ubuntu2.1_i386.deb
+gnome-settings-daemon_2.30.1-0ubuntu1.1_i386.deb
+gnome-system-tools_2.30.0-0ubuntu3_i386.deb
+gnome-terminal_2.30.2-0ubuntu1_i386.deb
+gnome-terminal-data_2.30.2-0ubuntu1_all.deb
+gnome-user-guide_2.30.0+git20100403ubuntu3_all.deb
+gnome-user-guide-en_2.30.0+git20100403ubuntu3_all.deb
+gnome-user-guide-fr_2.30.0+git20100403ubuntu3_all.deb
+grub-common_1.98-1ubuntu10_i386.deb
+grub-pc_1.98-1ubuntu10_i386.deb
+gstreamer0.10-fluendo-plugins-mp3-partner_7.0.20100316-3_i386.deb
+gwibber_2.30.3-0ubuntu2_all.deb
+gwibber-service_2.30.3-0ubuntu2_all.deb
+gzip_1.3.12-9ubuntu1.1_i386.deb
+hddtemp_0.3-beta15-45_i386.deb
+hpijs_3.10.2-2ubuntu2.2_i386.deb
+hplip_3.10.2-2ubuntu2.2_i386.deb
+hplip-data_3.10.2-2ubuntu2.2_all.deb
+hugin_2009.2.0+dfsg-2ubuntu2_i386.deb
+hugin-data_2009.2.0+dfsg-2ubuntu2_all.deb
+hugin-tools_2009.2.0+dfsg-2ubuntu2_i386.deb
+hunspell-fr_1%3a3.2.0-3ubuntu3.1_all.deb
+ifupdown_0.6.8ubuntu29.2_i386.deb
+imagemagick_7%3a6.5.7.8-1ubuntu1.1_i386.deb
+indicator-sound_0.2.6-0ubuntu1_i386.deb
+initscripts_2.87dsf-4ubuntu17.3_i386.deb
+language-pack-en_1%3a10.04+20110204_all.deb
+language-pack-en-base_1%3a10.04+20110204_all.deb
+language-pack-fr_1%3a10.04+20100714_all.deb
+language-pack-fr-base_1%3a10.04+20100714_all.deb
+language-pack-gnome-en_1%3a10.04+20110204_all.deb
+language-pack-gnome-en-base_1%3a10.04+20110204_all.deb
+language-pack-gnome-fr_1%3a10.04+20100714_all.deb
+language-pack-gnome-fr-base_1%3a10.04+20100714_all.deb
+language-support-writing-fr_1%3a10.04+20100311_all.deb
+lftp_4.0.2-1ubuntu0.1_i386.deb
+libabiword-2.8_2.8.2-2ubuntu1.1_i386.deb
+libaiksaurus-1.2-0c2a_1.2.1+dev-0.12-6build1_i386.deb
+libaiksaurus-1.2-data_1.2.1+dev-0.12-6build1_all.deb
+libaiksaurusgtk-1.2-0c2a_1.2.1+dev-0.12-6build1_i386.deb
+libapparmor1_2.5.1-0ubuntu0.10.04.3_i386.deb
+libapparmor-perl_2.5.1-0ubuntu0.10.04.3_i386.deb
+libapr1_1.3.8-1ubuntu0.3_i386.deb
+libaprutil1_1.3.9+dfsg-3ubuntu0.10.04.1_i386.deb
+libavahi-client3_0.6.25-1ubuntu6.2_i386.deb
+libavahi-common3_0.6.25-1ubuntu6.2_i386.deb
+libavahi-common-data_0.6.25-1ubuntu6.2_i386.deb
+libavahi-core6_0.6.25-1ubuntu6.2_i386.deb
+libavahi-glib1_0.6.25-1ubuntu6.2_i386.deb
+libavahi-gobject0_0.6.25-1ubuntu6.2_i386.deb
+libavahi-ui0_0.6.25-1ubuntu6.2_i386.deb
+libbabl-0.0-0_0.0.22-1build1_i386.deb
+libbind9-60_1%3a9.7.0.dfsg.P1-1ubuntu0.2_i386.deb
+libblkid1_2.17.2-0ubuntu1.10.04.2_i386.deb
+libboost-thread1.40.0_1.40.0-4ubuntu4_i386.deb
+libbrasero-media0_2.30.2-0ubuntu1.1_i386.deb
+libbz2-1.0_1.0.5-4ubuntu0.1_i386.deb
+libc6_2.11.1-0ubuntu7.8_i386.deb
+libc6-dev_2.11.1-0ubuntu7.8_i386.deb
+libc6-i686_2.11.1-0ubuntu7.8_i386.deb
+libc-bin_2.11.1-0ubuntu7.8_i386.deb
+libc-dev-bin_2.11.1-0ubuntu7.8_i386.deb
+libck-connector0_0.4.1-3ubuntu2_i386.deb
+libcomerr2_1.41.11-1ubuntu2.1_i386.deb
+libcouchdb-glib-1.0-2_0.6.3-0ubuntu2_i386.deb
+libcups2_1.4.3-1ubuntu1.3_i386.deb
+libcupscgi1_1.4.3-1ubuntu1.3_i386.deb
+libcupsdriver1_1.4.3-1ubuntu1.3_i386.deb
+libcupsimage2_1.4.3-1ubuntu1.3_i386.deb
+libcupsmime1_1.4.3-1ubuntu1.3_i386.deb
+libcupsppdc1_1.4.3-1ubuntu1.3_i386.deb
+libdbus-1-3_1.2.16-2ubuntu4.2_i386.deb
+libdbus-glib-1-2_0.84-1ubuntu0.2_i386.deb
+libdecoration0_1%3a0.8.4-0ubuntu15.3_i386.deb
+libdesktopcouch-glib-1.0-2_0.6.3-0ubuntu2_i386.deb
+libdevmapper1.02.1_2%3a1.02.39-1ubuntu4.1_i386.deb
+libdjvulibre21_3.5.22-1ubuntu4.1_i386.deb
+libdjvulibre-text_3.5.22-1ubuntu4.1_i386.deb
+libdns64_1%3a9.7.0.dfsg.P1-1ubuntu0.2_i386.deb
+libevdocument2_2.30.3-0ubuntu1.2_i386.deb
+libevview2_2.30.3-0ubuntu1.2_i386.deb
+libexiv2-6_0.19-1_i386.deb
+libfreetype6_2.3.11-1ubuntu2.4_i386.deb
+libfuse2_2.8.1-1.1ubuntu3.1_i386.deb
+libgdiplus_2.4.2-1ubuntu0.10.04.1_i386.deb
+libgdome2-0_0.8.1+debian-4_i386.deb
+libgdome2-cpp-smart0c2a_0.2.6-5_i386.deb
+libgegl-0.0-0_0.0.22-0ubuntu4_i386.deb
+libgimp2.0_2.6.8-2ubuntu1.2_i386.deb
+libgksu2-0_2.0.13~pre1-1ubuntu4.1_i386.deb
+libglew1.5_1.5.2-0ubuntu1_i386.deb
+libgoffice-0.8-8_0.8.1-1ubuntu2_i386.deb
+libgoffice-0.8-8-common_0.8.1-1ubuntu2_all.deb
+libgs8_8.71.dfsg.1-0ubuntu5.3_i386.deb
+libgssapi-krb5-2_1.8.1+dfsg-2ubuntu0.9_i386.deb
+libgtkmathview0c2a_0.8.0-4_i386.deb
+libgudev-1.0-0_1%3a151-12.3_i386.deb
+libgutenprint2_5.2.5-0ubuntu1.1_i386.deb
+libhpmud0_3.10.2-2ubuntu2.2_i386.deb
+libid3tag0_0.15.1b-10build2_i386.deb
+libimage-exiftool-perl_7.89-1_all.deb
+libimlib2_1.4.2-5build1_i386.deb
+libisc60_1%3a9.7.0.dfsg.P1-1ubuntu0.2_i386.deb
+libisccc60_1%3a9.7.0.dfsg.P1-1ubuntu0.2_i386.deb
+libisccfg60_1%3a9.7.0.dfsg.P1-1ubuntu0.2_i386.deb
+libk5crypto3_1.8.1+dfsg-2ubuntu0.9_i386.deb
+libkpathsea5_2009-5ubuntu0.2_i386.deb
+libkrb5-3_1.8.1+dfsg-2ubuntu0.9_i386.deb
+libkrb5support0_1.8.1+dfsg-2ubuntu0.9_i386.deb
+liblcms1_1.18.dfsg-1ubuntu2.10.04.1_i386.deb
+libldap-2.4-2_2.4.21-0ubuntu5.4_i386.deb
+libldap-2.4-2_2.4.21-0ubuntu5.5_i386.deb
+liblink-grammar4_4.6.5-1ubuntu1_i386.deb
+liblircclient0_0.8.6-0ubuntu4.2_i386.deb
+liblua5.1-0_5.1.4-5_i386.deb
+liblwres60_1%3a9.7.0.dfsg.P1-1ubuntu0.2_i386.deb
+libmagickcore2_7%3a6.5.7.8-1ubuntu1.1_i386.deb
+libmagickcore2-extra_7%3a6.5.7.8-1ubuntu1.1_i386.deb
+libmagickwand2_7%3a6.5.7.8-1ubuntu1.1_i386.deb
+libmetacity-private0_1%3a2.30.1-0ubuntu1.1_i386.deb
+libmng1_1.0.9-1ubuntu1_i386.deb
+libnautilus-extension1_1%3a2.30.1-0ubuntu1.2_i386.deb
+libnm-glib2_0.8-0ubuntu3.2_i386.deb
+libnm-util1_0.8-0ubuntu3.2_i386.deb
+libnspr4-0d_4.8.6-0ubuntu0.10.04.2_i386.deb
+libnss3-1d_3.12.9+ckbi-1.82-0ubuntu0.10.04.1_i386.deb
+libots0_0.5.0-2build1_i386.deb
+libpam0g_1.1.1-2ubuntu5.3_i386.deb
+libpam-ck-connector_0.4.1-3ubuntu2_i386.deb
+libpam-modules_1.1.1-2ubuntu5.3_i386.deb
+libpam-runtime_1.1.1-2ubuntu5.3_all.deb
+libpango1.0-0_1.28.0-0ubuntu2.2_i386.deb
+libpango1.0-common_1.28.0-0ubuntu2.2_all.deb
+libpano13-1_2.9.14-2_i386.deb
+libpano13-bin_2.9.14-2_i386.deb
+libpcsclite1_1.5.3-1ubuntu4.2_i386.deb
+libperl5.10_5.10.1-8ubuntu2.1_i386.deb
+libplot2c2_2.6-0ubuntu1_i386.deb
+libplymouth2_0.8.2-2ubuntu2.2_i386.deb
+libpolkit-agent-1-0_0.96-2ubuntu0.1_i386.deb
+libpolkit-backend-1-0_0.96-2ubuntu0.1_i386.deb
+libpolkit-gobject-1-0_0.96-2ubuntu0.1_i386.deb
+libpoppler5_0.12.4-0ubuntu5.2_i386.deb
+libpoppler-glib4_0.12.4-0ubuntu5.2_i386.deb
+libpsiconv6_0.9.8-4.1_i386.deb
+libpurple0_1%3a2.6.6-1ubuntu4.3_i386.deb
+libpurple-bin_1%3a2.6.6-1ubuntu4.3_all.deb
+libslp1_1.2.1-7.6ubuntu0.1_i386.deb
+libsmbclient_2%3a3.4.7~dfsg-1ubuntu3.6_i386.deb
+libss2_1.41.11-1ubuntu2.1_i386.deb
+libssl0.9.8_0.9.8k-7ubuntu8.6_i386.deb
+libstdc++6-4.4-dev_4.4.3-4ubuntu5_i386.deb
+libsvn1_1.6.6dfsg-2ubuntu1.3_i386.deb
+libt1-5_5.1.2-3build1_i386.deb
+libtiff4_3.9.2-2ubuntu0.7_i386.deb
+libudev0_151-12.3_i386.deb
+libuuid1_2.17.2-0ubuntu1.10.04.2_i386.deb
+libwbclient0_2%3a3.4.7~dfsg-1ubuntu3.6_i386.deb
+libwebkit-1.0-2_1.2.5-0ubuntu0.10.04.1_i386.deb
+libwebkit-1.0-common_1.2.5-0ubuntu0.10.04.1_all.deb
+libwv-1.2-3_1.2.4-2ubuntu3_i386.deb
+libwww-perl_5.834-1ubuntu0.1_all.deb
+libwxbase2.8-0_2.8.10.1-0ubuntu1.2_i386.deb
+libwxgtk2.8-0_2.8.10.1-0ubuntu1.2_i386.deb
+libxml2_2.7.6.dfsg-1ubuntu1.1_i386.deb
+libxml2-utils_2.7.6.dfsg-1ubuntu1.1_i386.deb
+link-grammar-dictionaries-en_4.6.5-1ubuntu1_all.deb
+linux-firmware_1.34.7_all.deb
+linux-generic_2.6.32.32.38_i386.deb
+linux-headers-2.6.32-24_2.6.32-24.43_all.deb
+linux-headers-2.6.32-24-generic_2.6.32-24.43_i386.deb
+linux-headers-2.6.32-32_2.6.32-32.62_all.deb
+linux-headers-2.6.32-32-generic_2.6.32-32.62_i386.deb
+linux-headers-generic_2.6.32.32.38_i386.deb
+linux-image-2.6.32-24-generic_2.6.32-24.43_i386.deb
+linux-image-2.6.32-32-generic_2.6.32-32.62_i386.deb
+linux-image-generic_2.6.32.32.38_i386.deb
+linux-libc-dev_2.6.32-32.62_i386.deb
+lock
+login_1%3a4.1.4.2-1ubuntu2.2_i386.deb
+logrotate_3.7.8-4ubuntu2.1_i386.deb
+lynx-cur_2.8.8dev.2-1_i386.deb
+lynx-cur-wrapper_2.8.8dev.2-1_all.deb
+man-db_2.5.7-2ubuntu1_i386.deb
+manpages-fr_3.23.1-1_all.deb
+media-player-info_12-1~lucid1_all.deb
+medibuntu-keyring_2008.04.20_all.deb
+metacity_1%3a2.30.1-0ubuntu1.1_i386.deb
+metacity-common_1%3a2.30.1-0ubuntu1.1_all.deb
+mobile-broadband-provider-info_20100716-1ubuntu0.1_all.deb
+modemmanager_0.3-0ubuntu2.2_i386.deb
+mount_2.17.2-0ubuntu1.10.04.2_i386.deb
+mountall_2.15.3_i386.deb
+nautilus_1%3a2.30.1-0ubuntu1.2_i386.deb
+nautilus-data_1%3a2.30.1-0ubuntu1.2_all.deb
+nautilus-sendto-empathy_2.30.3-0ubuntu1_i386.deb
+network-manager_0.8-0ubuntu3.2_i386.deb
+nmap_5.00-3_i386.deb
+ntpdate_1%3a4.2.4p8+dfsg-1ubuntu2.1_i386.deb
+openoffice.org-base-core_1%3a3.2.0-7ubuntu4.2_i386.deb
+openoffice.org-calc_1%3a3.2.0-7ubuntu4.2_i386.deb
+openoffice.org-common_1%3a3.2.0-7ubuntu4.2_all.deb
+openoffice.org-core_1%3a3.2.0-7ubuntu4.2_i386.deb
+openoffice.org-draw_1%3a3.2.0-7ubuntu4.2_i386.deb
+openoffice.org-emailmerge_1%3a3.2.0-7ubuntu4.2_all.deb
+openoffice.org-gnome_1%3a3.2.0-7ubuntu4.2_i386.deb
+openoffice.org-gtk_1%3a3.2.0-7ubuntu4.2_i386.deb
+openoffice.org-help-en-gb_1%3a3.2.0-7ubuntu1_all.deb
+openoffice.org-help-fr_1%3a3.2.0-7ubuntu1_all.deb
+openoffice.org-hyphenation_0.5_all.deb
+openoffice.org-hyphenation-en-us_2.4-6ubuntu1_all.deb
+openoffice.org-hyphenation-fr_1%3a3.2.0-3ubuntu3.1_all.deb
+openoffice.org-impress_1%3a3.2.0-7ubuntu4.2_i386.deb
+openoffice.org-l10n-common_1%3a3.2.0-7ubuntu1_all.deb
+openoffice.org-l10n-en-gb_1%3a3.2.0-7ubuntu1_all.deb
+openoffice.org-l10n-en-za_1%3a3.2.0-7ubuntu1_all.deb
+openoffice.org-l10n-fr_1%3a3.2.0-7ubuntu1_all.deb
+openoffice.org-math_1%3a3.2.0-7ubuntu4.2_i386.deb
+openoffice.org-style-human_1%3a3.2.0-7ubuntu4.2_all.deb
+openoffice.org-thesaurus-en-au_2.1-5_all.deb
+openoffice.org-thesaurus-en-us_1%3a3.2.0-3ubuntu3.1_all.deb
+openoffice.org-thesaurus-fr_1%3a3.2.0-3ubuntu3.1_all.deb
+openoffice.org-writer_1%3a3.2.0-7ubuntu4.2_i386.deb
+openssh-client_1%3a5.3p1-3ubuntu6_i386.deb
+openssl_0.9.8k-7ubuntu8.6_i386.deb
+partial
+passwd_1%3a4.1.4.2-1ubuntu2.2_i386.deb
+patch_2.6-2ubuntu1_i386.deb
+perl_5.10.1-8ubuntu2.1_i386.deb
+perl-base_5.10.1-8ubuntu2.1_i386.deb
+perl-modules_5.10.1-8ubuntu2.1_all.deb
+plymouth_0.8.2-2ubuntu2.2_i386.deb
+plymouth-label_0.8.2-2ubuntu2.2_i386.deb
+plymouth-theme-ubuntu-logo_0.8.2-2ubuntu2.2_i386.deb
+plymouth-theme-ubuntu-text_0.8.2-2ubuntu2.2_i386.deb
+plymouth-x11_0.8.2-2ubuntu2.2_i386.deb
+pm-utils_1.3.0-1ubuntu3_all.deb
+policykit-1_0.96-2ubuntu0.1_i386.deb
+poppler-utils_0.12.4-0ubuntu5.2_i386.deb
+putty_0.60+2009-11-22-1_i386.deb
+putty-tools_0.60+2009-11-22-1_i386.deb
+python-aptdaemon_0.11+bzr345-0ubuntu4.1_all.deb
+python-aptdaemon-gtk_0.11+bzr345-0ubuntu4.1_all.deb
+python-avahi_0.6.25-1ubuntu6.2_all.deb
+python-desktopcouch_0.6.4-0ubuntu3.2_all.deb
+python-desktopcouch-records_0.6.4-0ubuntu3.2_all.deb
+python-gnomeapplet_2.30.0-0ubuntu1.1_i386.deb
+python-gnomekeyring_2.30.0-0ubuntu1.1_i386.deb
+python-imaging_1.1.7-1ubuntu0.1_i386.deb
+python-lazr.restfulclient_0.9.11-1ubuntu1.1_all.deb
+python-libxml2_2.7.6.dfsg-1ubuntu1.1_i386.deb
+python-mako_0.2.5-2ubuntu1.3_all.deb
+python-papyon_0.4.8-0ubuntu2_all.deb
+python-software-properties_0.75.10.1_all.deb
+python-uno_1%3a3.2.0-7ubuntu4.2_i386.deb
+python-wnck_2.30.0-0ubuntu1.1_i386.deb
+rdesktop_1.6.0-2ubuntu3.1_i386.deb
+rsync_3.0.7-1ubuntu1.1_i386.deb
+rsyslog_4.2.0-2ubuntu8.1_i386.deb
+samba-common_2%3a3.4.7~dfsg-1ubuntu3.6_all.deb
+samba-common-bin_2%3a3.4.7~dfsg-1ubuntu3.6_i386.deb
+screen_4.0.3-14ubuntu1.2_i386.deb
+smbclient_2%3a3.4.7~dfsg-1ubuntu3.6_i386.deb
+software-properties-gtk_0.75.10.1_all.deb
+ssh-askpass-gnome_1%3a5.3p1-3ubuntu6_i386.deb
+subversion_1.6.6dfsg-2ubuntu1.3_i386.deb
+sudo_1.7.2p1-1ubuntu5.3_i386.deb
+system-tools-backends_2.9.4-0ubuntu1.1_i386.deb
+sysvinit-utils_2.87dsf-4ubuntu17.3_i386.deb
+sysv-rc_2.87dsf-4ubuntu17.3_all.deb
+tar_1.22-2ubuntu1_i386.deb
+telepathy-gabble_0.8.12-0ubuntu1.1_i386.deb
+tomboy_1.2.2-0ubuntu1_i386.deb
+ttf-lyx_1.6.5-1ubuntu1_all.deb
+ttf-opensymbol_1%3a3.2.0-7ubuntu4.2_all.deb
+ttf-thai-tlwg_1%3a0.4.13-4ubuntu0.1_all.deb
+tzdata_2011g-0ubuntu0.10.04_all.deb
+ubufox_0.9~rc2-0ubuntu2.1_all.deb
+udev_151-12.3_i386.deb
+unattended-upgrades_0.55ubuntu5_all.deb
+uno-libs3_1.6.0+OOo3.2.0-7ubuntu4.2_i386.deb
+update-inetd_4.35ubuntu0.1_all.deb
+update-manager_1%3a0.134.11_all.deb
+update-manager-core_1%3a0.134.11_i386.deb
+upstart_0.6.5-8_i386.deb
+ure_1.6.0+OOo3.2.0-7ubuntu4.2_i386.deb
+ureadahead_0.100.0-4.1.3_i386.deb
+usb-creator-common_0.2.22.3_all.deb
+usb-creator-gtk_0.2.22.3_all.deb
+util-linux_2.17.2-0ubuntu1.10.04.2_i386.deb
+uuid-runtime_2.17.2-0ubuntu1.10.04.2_i386.deb
+vim_2%3a7.2.330-1ubuntu3_i386.deb
+vim-runtime_2%3a7.2.330-1ubuntu3_all.deb
+vino_2.28.2-0ubuntu2.1_i386.deb
+w3m_0.5.2-2.1ubuntu1.2_i386.deb
+wfrench_1.2.3-7_all.deb
+wget_1.12-1.1ubuntu2.1_i386.deb
+x11-xserver-utils_7.5+1ubuntu2.1_i386.deb
+xdg-utils_1.0.2-6.1ubuntu3.1_all.deb
+xkb-data_1.8-1ubuntu8.1~10.04.1_all.deb
+xserver-common_2%3a1.7.6-2ubuntu7.6_all.deb
+xserver-xorg-core_2%3a1.7.6-2ubuntu7.6_i386.deb
+xserver-xorg-video-geode_2.11.11-1~lucid1_i386.deb
+xulrunner-1.9.2_1.9.2.17+build3+nobinonly-0ubuntu0.10.04.1_i386.deb
+xz-utils_4.999.9beta+20091116-1_i386.deb
+[root@prunelle:/var/cache/apt/archives] # du -sh
+433M	.
+
+=====================================================
+Supprimer tous les paquets téléchargés et installés : 
+sudo apt-get clean
+=====================================================
+
+---> Après <---
+
+[root@prunelle:/var/cache/apt/archives] # sudo apt-get clean
+[root@prunelle:/var/cache/apt/archives] # ls
+lock  partial
+[root@prunelle:/var/cache/apt/archives] # du -sh
+44K	.
+#-------------------------------------------------------
+Supprimer des logiciels en sauvegardant la configuration
+
+sudo apt-get remove <nom du programme inutilisé à supprimer>
+
+Supprimer des logiciels en supprimant la configuration
+
+sudo apt-get remove <nom du programme inutilisé à supprimer> --purge
+
+Supprimer les logiciels orphelins
+
+sudo aptitude install deborphan
+sudo apt-get remove $(deborphan) --purge 
+
+Les résidus des logiciels supprimés
+sudo dpkg -P `dpkg -l | grep "^rc" | tr -s ' ' | cut -d ' ' -f 2`
+
+Supprimer des fichiers de sauvegarde
+find ~/ -name '*~' -print0
+find ~/ -name '*~' -print0 | xargs -0 rm
+
+Suppression des anciens noyaux
+D'abord voir quelles sont les versions installées
+dpkg -l | grep linux | cut -f 3 -d " "
+
+[jpantinoux@prunelle:~] $ sudo apt-get autoremove linux-image-2.6.32-24-generic
+Lecture des listes de paquets... Fait
+Construction de l'arbre des dépendances       
+Lecture des informations d'état... Fait
+Les paquets suivants seront ENLEVÉS :
+  linux-headers-2.6.32-24 linux-headers-2.6.32-24-generic linux-image-2.6.32-24-generic
+  openoffice.org-l10n-en-gb openoffice.org-l10n-fr
+0 mis à jour, 0 nouvellement installés, 5 à enlever et 0 non mis à jour.
+Après cette opération, 198Mo d'espace disque seront libérés.
+Souhaitez-vous continuer [O/n] ? o
+(Lecture de la base de données... 153584 fichiers et répertoires déjà installés.)
+Suppression de linux-headers-2.6.32-24-generic ...
+Suppression de linux-headers-2.6.32-24 ...
+Suppression de linux-image-2.6.32-24-generic ...
+Running postrm hook script /usr/sbin/update-grub.
+Generating grub.cfg ...
+Found linux image: /boot/vmlinuz-2.6.32-32-generic
+Found initrd image: /boot/initrd.img-2.6.32-32-generic
+Found memtest86+ image: /memtest86+.bin
+Found CentOS release 5.6 (Final) on /dev/sda2
+Found Scientific Linux release 6.0 (Carbon) on /dev/sda8
+done
+The link /vmlinuz.old is a damaged link
+Removing symbolic link vmlinuz.old 
+ you may need to re-run your boot loader[grub]
+The link /initrd.img.old is a damaged link
+Removing symbolic link initrd.img.old 
+ you may need to re-run your boot loader[grub]
+Suppression de openoffice.org-l10n-en-gb ...
+Suppression de openoffice.org-l10n-fr ...
+[jpantinoux@prunelle:~] $ 
+

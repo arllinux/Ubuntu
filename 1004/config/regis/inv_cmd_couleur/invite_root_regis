@@ -1,0 +1,13 @@
+# Mon invite de commande root portable NEC
+# root_install
+MARRON='\[\033[0;33m\]'
+BLANC='\[\033[1;37m\]'
+ROUGE='\[\033[0;31m\]'
+NC='\[\033[0m\]'
+PS1="$ROUGE[$NC$BLANC\u$NC@$BLANC\h$NC:$MARRON\w$NC$ROUGE]$NC $BLANC#$NC "
+
+# Alias de base
+alias ll='ls -lh'
+alias aa='apt-get install'
+alias uu='apt-get update & apt-get dist-upgrade'
+

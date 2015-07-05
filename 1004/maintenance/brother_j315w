@@ -1,0 +1,83 @@
+#--------------------------------------------------------------------
+'Installation imprimante Brother DCP-J315W (multifonctions)'
+'Sous Ubuntu 10.04'
+
+Imprimante hors tention
+
+Créer les répertoires qui manquent en entrant les commandes suivantes :
+# mkdir /var/spool/lpd
+# mkdir /usr/share/cups/model
+
+Brancher l'imprimante
+Lancer la procédure graphique pour installer l'imprimante
+Si celle-ci ne réussi pas il faudra suivre la procédure suivante :
+
+Téléchargez les pilotes (drivers) depuis le site "Brother Solutions"
+wget http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_prn.html
+	« LPR Driver (format deb) »
+		dcpj315wlpr-1.1.3-1.i386.deb
+	« cupswraper Driver (format deb) »
+		dcpj315wcupswrapper-1.1.3-1.i386.deb
+
+Téléchargez les pilotes (drivers) suivants pour la partie scanner :
+http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_scn.html
+	brscan3
+		brscan3-0.2.11-4.i386.deb
+
+
+Installer les pilotes de l'imprimante
+# dpkg -i --force-all dcpj315wlpr-1.1.3-1.i386.deb
+# dpkg -i --force-all dcpj315wcupswrapper-1.1.3-1.i386.deb
+
+Vérification de l'installation
+
+# sudo dpkg -l | grep Brother
+
+Vérifier si cups est activé
+# sysv-rc-conf
+Cocher les colonnes 2345 sur la ligne "cups"
+
+Activer cups au démarrage
+# sysv-rc-conf cups on
+
+Lancer le service
+# service cups start
+
+Tester l'impression
+
+#--------------------------------------------------------------------
+Installer le pilote du scanner
+# dpkg -i brscan3-0.2.11-4.i386.deb
+
+Vérifier l'installation
+# dpkg  -l  |  grep  Brother
+ii  brscan3               0.2.11-4     Brother Scanner Driver
+ii  dcpj315wcupswrapper   1.1.3-1      Brother CUPS Inkjet Printer Definitions
+ii  dcpj315wlpr           1.1.3-1      Brother lpr Inkjet Printer Definitions
+
+Lancez une application de scan pour essayer
+Vous pouvez utiliser "Simple-Scan" qui est installé par défaut 
+
+Scanner : erreurs d'entrée/sortie en USB
+Il s'agit ici d'un problème de droit : le pilote de numérisation fournis par Brother,
+aussi invraisemblable que cela puisse paraitre, n'est pas prévu pour 
+permettre à l'utilisateur courant d'utiliser le scanner.
+Voici une solution à ce problème :
+
+Ubuntu 10.04 à 12.04
+Éditez le fichier /lib/udev/rules.d/40-libsane.rules avec les droits d'administration.
+Ajoutez les deux lignes suivantes à la fin de la liste de matériel
+(avant la ligne « # The following rule will disable …»
+
+# Brother scanners
+# ATTRS{idVendor}=="04f9", ENV{libsane_matched}="yes"
+
+Sauvegardez le fichier puis, redémarrez votre ordinateur.
+
+En cas de problème, tapez la commande « lsusb » dans un terminal, si votre scanner
+n’apparaît pas dans la liste, il vous faudra ajouter l'utilisateur
+au groupe « lp ». Via la commande: 
+# adduser $USER lp
+Puis déconnectez/reconnectez vous.
+
+#-- Fin --

@@ -1,0 +1,84 @@
+#===============================#
+'Personnaliser le menu de Grub2'
+#===============================#
+JPA - 06/2001
+
+# Supprimer les anciens noyaux
+#----------------------------#
+
+1 - Lister les noyaux présents  :
+#-------------------------------#
+
+$ dpkg -l | grep linux-image | cut -f 3 -d " "
+linux-image-2.6.32-24-generic
+linux-image-2.6.32-32-generic
+linux-image-generic
+
+ou plus facile à mémoriser :
+
+$ dpkg -l | grep linux-image
+
+rc  linux-image-2.6.32-24-generic                 2.6.32-24.43                                    Linux kernel image for version 2.6.32 on x86/x86_64
+ii  linux-image-2.6.32-32-generic                 2.6.32-32.62                                    Linux kernel image for version 2.6.32 on x86/x86_64
+ii  linux-image-generic                           2.6.32.32.38                                    Generic Linux kernel image
+
+2 - Vérifier quel noyau est utilisé :
+#-----------------------------------#
+$ uname -r
+2.6.32-32-generic
+
+On voit donc que le noyau à supprimer est le 2.6.32-24
+Pour éviter d'avoir à taper une commande à ralonge, il faut isoler l'élément distinctif de cette ligne par rapport aux autres noyaux. Ici c'est le chiffre "24".
+Ceci nous permet d'écrire la commande suivante :
+$ su -
+mot de passe
+# cd /boot/ && rm -vfR *24* && update-grub
+
+Si vous préférez vous pouvez exécuter les commandes suivantes :
+# apt-get autoremove linux-image-2.6.32-24-generic (à adapter)
+# update-grub
+
+3 - Choisir l'entrée par défaut au démarrage
+#------------------------------------------#
+
+Pour cela il faut éditer avec vim le fichier /etc/defaults/grub
+$ sudo vim /etc/default/grub
+
+
+# If you change this file, run 'update-grub' afterwards to update
+# /boot/grub/grub.cfg.
+
+GRUB_DEFAULT=0
+#GRUB_HIDDEN_TIMEOUT=0
+GRUB_HIDDEN_TIMEOUT_QUIET=true
+GRUB_TIMEOUT=10
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+GRUB_CMDLINE_LINUX=" vga=769"
+../..
+
+Ceci n'est q'un extrait. C'est la ligne GRUB_DEFAULT=0 qui indique quelle est la ligne sélectionnée par défaut.
+Si par exemple "Windows" est sur la ligne 4 et que l'on souhaite en faire notre choix (mais quelle drôle d'idée !!), il suffit d'écrire :
+GRUB_DEFAULT=4 
+
+Enregistrer et fermer le fichier
+:wq
+puis
+
+$ sudo update-grub
+
+4 - Suppression de la ligne Memtest86
+#-----------------------------------#
+
+Il suffit dans ce cas de rendre inactif le script 20_memtest86+
+Pour cela il faut se rendre dans le dossier :
+cd /etc/grub.d/
+
+Puis rendre le fichier 20_memtest86+ non exécutable
+$ sudo chmod -x 20_memtest86+
+puis
+$ sudo update-grub
+
+Au redémarrage il n'y aura plus que 2 lignes dans le menu (trois si vous avez Windows)
+
+--> Fin <--

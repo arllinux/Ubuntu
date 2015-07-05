@@ -1,0 +1,43 @@
+#------------------------------------------------
+' Activer l'autocompletion avec sudo sous Ubuntu'
+#------------------------------------------------
+
+Complétion automatique
+
+#-----------------
+'/etc/bash.bashrc'
+#-----------------
+
+La tabulation permet de compléter la commande ou le chemin que vous avez commencez à taper.
+C'est très pratique. Hélas, lorsque votre commande commence par sudo le reste n'est pas complété.
+
+Quand vous utilisez apt, le nom du paquet que vous voulez installer n'est pas complété.
+Pour que cette fonctionnalité soit pleinement utilisée il vous suffit d'ouvrir le fichier
+
+	/etc/bash.bashrc
+
+Décommentez les lignes après :
+
+# enable bash completion in interactive shells
+(3 lignes en tout, ajoutez les si elles ne sont pas dans votre fichier) :
+
+# enable bash completion in interactive shells
+if [ -f /etc/bash_completion ]; then
+. /etc/bash_completion
+fi
+
+#-------------
+'/etc/inputrc'
+#-------------
+
+Décommentez aussi les lignes sous : 
+
+# alternate mappings for "page up" and "page down" to search the history
+(2 lignes) dans le fichier /etc/inputrc
+ainsi avec PgUp et PgDn vous obtiendrez une complétion qui se fait par rapport à l'historique de vos commandes :
+
+	/etc/inputrc
+
+# alternate mappings for "page up" and "page down" to search the history
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward 

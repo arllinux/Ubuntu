@@ -1,0 +1,25 @@
+# -------------------------------------------------
+Réglage son pour le Dell GX620 sous Ubuntu 10.04
+Machine aev4 (Afrique en vie)
+Dans alsamixer
+$ alsamixer
+
+Activer uniquement les 3 colonnes suivantes :
+- Master mono
+- Headphone
+- PCM
+
+- Extenal Amp est également activé [OO]
+
+Dans les préférences du son :
+Thème sonore : Ubuntu
+Matériel : profil Analog Stereo Duplex : 1 entrée / 1 sortie
+Entrée : Analog input
+Sortie : Analog Mono Output / Amplifier
+
+Une fois les réglages son effectués en graphique
+# alsactl store
+
+# reboot
+
+Le son doit être présent au démarrage

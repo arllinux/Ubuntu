@@ -1,0 +1,90 @@
+#---------------------------------------------#
+# Restaurer Grub2 si plus d'accès par celui-ci
+#---------------------------------------------#
+JPA 06/2011
+
+Cas concret :
+Sur un machine avec
+	CentOs installé en 1,
+	Scientific Linux installé en 2
+	Ubuntu 10.04 installé en 3,
+
+C'est Grub 2 qui gère le démarrage de la machine
+Il à pris la main sur Grub Legacy qui gérait CentOs et SL.
+
+	Après avoir installé OpenSuse en 4,
+puis décidé de le supprimer en formatant les partitions sur lesquelles il était installé, je n'avais plus d'accès à un menu de démarrage.
+
+#-- Pas à pas --#
+
+1 - Suppression des partitions de l'installation OpenSuse
+
+	Lancement du LiveCD Gparted
+		Suppression des 3 partitions 
+	Redémarrage
+
+2 - Plus d'accès à Grub2 installé par Ubuntu. Donc plus d'accès à aucune distributions.
+
+# Super Grub disk
+#----------------#
+
+3 - Lancement de Super Grub disk
+	Téléchargeable ici
+	http://download.berlios.de/supergrub/super_grub_disk_0.9799.iso
+
+	(Profitez-en pour télécharger Rescatux qui nous servira tout à l'heure)
+	http://download.berlios.de/rescatux/rescatux_cdrom_usb_hybrid_i386_486-amd64_0.27.iso
+
+	(Tant que vous y êtes vous pouvez charger Super Grub Disk 2 qui rend aussi des services)
+	http://download.berlios.de/supergrub/super_grub_disk_hybrid-1.98s1.iso
+
+	Super Grub disk ne gère que Grub Legacy (0.97) et donc ne rétabli et ne peut fixer dans la mbr que l'accès à CentOs et SL 6 qui utilisent tous deux Grub1.
+
+4 - Il faut maintenant rétablir grub2 qui est installé dans Ubuntu
+
+# Super Grub disk 2 
+#------------------#
+
+5 - En démarrant sur le disque de Super Grub2, on ne retabli l'accès par le menu de grub2 que jusqu'au prochain redémarrage. Super Grub2 permet donc simplement de vérifier si l'accès par grub2 est toujours valide, mais ne fixe pas le choix.
+
+# Rescatux
+#---------#
+
+Permet de rétablir le menu de Grub2 de façon permanente
+
+6 - Démarrer sur le liveCD Rescatux 
+
+7 - Au lancement du cd
+	Sélectionner "live"
+
+8 - Sur le bureau dans la fenêtre RESCATUX's RESCAPP
+	Choisir :
+		grub	 Grub(+)	Grub options
+
+	Puis
+		grub-install	Restore Grub	Restore Grub into the MBR
+
+	Puis
+		run	Run
+
+9 - Choisir la partition ou se trouve le système Ubuntu à lancer
+	Dans mon cas /dev/sda10 (modifier en fonction de votre schéma de partitionnement)
+
+10 - Il faut ensuite valider le nom du disque
+	sda	251 GB (dans mon exemple)
+
+11 - Ne pas hésiter à valider plusieurs fois, jusqu'au message :
+	Grub was installed OK! :)
+
+12 - Fermer la fenêtre
+Puis
+
+13 -  Menu "System"
+	Shutdown
+
+Tout doit fonctionner normalement
+
+Si vous souhaitez "faire le ménage" dans le menu de grub2, voyez le fichier :
+"personnaliser_grub2"
+
+--> Fin <--

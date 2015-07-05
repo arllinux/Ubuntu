@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "script Nettoyage UBUNTU"
+sudo apt-get clean
+echo "Cache (/var/cache/apt/archives) Paquets supprimés OK"
+sleep 3
+rm -r -f ~/.Trash/*
+echo "Suppression de la CORBEILLE vide. OK"
+sleep 3
+find ~/ -name '*~' -exec rm {} \;
+echo "Suppression des fichiers temporaires du dossier HOME terminant par ~ terminé. OK"
+echo "TERMINÉ"

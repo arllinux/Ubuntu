@@ -1,0 +1,5 @@
+Pour raffraichie les entrées de Grub2
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+Source : http://forum.ubuntu-fr.org/viewtopic.php?pid=3479886
+
+--> Fin <--

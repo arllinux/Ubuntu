@@ -1,0 +1,50 @@
+#-------------------------------
+'Changer le nom de l'ordinateur'
+#-------------------------------
+JM - 07/2011
+
+Procédure valable sous ubuntu 10.04 (pas testé sur d'autres distributions)
+
+Avant toute modification sauvegarder les fichiers d'origine
+$ sudo cp /etc/hostname hostname_old
+$ sudo cp /etc/hosts hosts_old
+
+A) 
+1 - Ouvrir  /etc/hostname avec vim :
+$ sudo vim /etc/hostname  	<Entrée>
+
+2 - Dans le dossier ouvert par vim, aller sur la dernière lettre du nom de la machine puis taper « a »
+On passe alors en mode --Insertion-- 
+
+3-Aller avec le curseur sur la partie du nom a modifier puis effacer et modifier le nom :
+jean Pier-laptop                        jean Pier-thebest
+
+4-Taper sur la touche « échap » du clavier pour quitter le mode –Insertion--
+
+5-taper :   
+:q! <Entrée>  pour perdre tous les changements. 
+                                                     
+OU tapez :   
+:wq <Entrée>  pour enregistrer les changements. 
+
+ 					______________________
+
+B)
+1-ouvrir le fichier hosts avec gedit:
+$ gksudo gedit/etc/hosts   <Entrée>
+2-transformer le format erroné :   
+	127.0.0.1 localhost
+	127.0.1.1 jean Pier-thebest
+		par :
+	127.0.0.1 localhost jean Pier-thebest
+
+3-<Entrée>
+
+4-reboot.
+
+ 					______________________
+
+Si lors de l'ouverture de la console en mode administrateur après reboot de  la machine, le message d'erreur suivant s'affiche :
+« unable to resolve boot » c'est que vos avez oublié la phase B.
+
+-- Fin --

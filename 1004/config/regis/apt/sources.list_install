@@ -1,0 +1,6 @@
+
+deb http://fr.archive.ubuntu.com/ubuntu/ lucid main restricted universe multiverse
+deb http://fr.archive.ubuntu.com/ubuntu/ lucid-updates main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu lucid-security main restricted universe multiverse
+deb http://archive.canonical.com/ubuntu lucid partner
+deb http://packages.medibuntu.org/ lucid free non-free

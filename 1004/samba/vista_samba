@@ -1,0 +1,20 @@
+Démarrer l’éditeur de registre  soit via la commande « Executer… » > « regedit »  de la barre de démarrage de Windows Vista, soit via l’explorateur de fichiers (touches drapeau + E) « c:/Windows/System32/ regedt32.exe »
+
+Naviguez jusqu'à chemin « HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa » chercher la clé « LmCompatibilityLevel » et passer sa valeur a « 1 ».
+
+Quitter le programme, puis redémarrer Windows
+
+Une fois Windows relancé, ajouté votre lecteur réseau via le gestionnaire de fichiers (drapeau + E),
+icône « connecter un lecteur reseau » >
+Taper l'accès au partage :
+Lecteur Z
+\\192.168.0.2\public
+"Suivant"
+Une fenêtre demandant le login et le mot de passe apparait
+login	jpantinoux
+mdp	sloteur
+[*] la case se souvenir du mot de passe
+
+Faire un raccourci sur le bureau
+
+L'accès se fait par double clic

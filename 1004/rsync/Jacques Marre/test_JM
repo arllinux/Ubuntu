@@ -1,0 +1,34 @@
+#!/bin/bash
+
+Date=$(date +%d-%m-%Y)
+Heure=$(date +%T)
+#SOURCEDIR='/partages'
+SOURCEDIR='Variable en fonction de la machine utilisée : ex - /home/zac/Home'
+#DESTDIR='/home/sauvegarde_ibmx2'
+DESTDIR='/media/sauvegarde_Samba/zac'
+SERVEUR="root@192.168.0.115"
+# --\\\\\--
+
+# Le script présent dans la machine A vérifie si la machine B est connectée.
+# Puis vérifie si le partage Samba est monté (DD externe)
+
+echo -e "----\nLancement sauvegarde à : $Heure le $Date"
+
+# Vérifie si la machine B est est en route
+ping -c 1 192.168.0.115 > /dev/null
+        if [ $? = "0" ]
+        then
+
+# Vérifie si le dossier contenant le partage est présent (montage du disque)
+[ -d $DESTDIR ]
+                if [ $? = "0" ]
+                then
+                        # Syncronisation des données
+                        rsync -av --delete $SOURCEDIR $SERVEUR:$DESTDIR
+                else
+                echo "Le disque externe n'est pas monté"
+                fi
+        else
+        echo "Le serveur est éteind"
+        fi
+

@@ -1,0 +1,623 @@
+#------------------------------------------------------
+Installer un serveur Samba sur une distribution Ubuntu
+#------------------------------------------------------
+
+JPA - Septembre 2011
+
+le cadre est celui d'un réseau domestique où un serveur dhcp ne tourne pas en permanence.
+
+Résumé des de la procédure :
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Les commandes
+# ifconfig
+
+# apt-get install samba smbclient
+
+# apt-get install chkconfig
+# chkconfig --list (pour la liste des services)
+	# service smbd start
+	# service smbd stop
+	# service smbd restart
+	# service smbd status
+
+# apt-get install sysv-rc-conf
+# sysv-rc-conf
+
+# cd /etc/init.d
+# vim myiptables
+Contenu
+#!/bin/bash
+#
+#/sbin/iptables -P INPUT DROP
+#/sbin/iptables -t filter -A INPUT -s 127.0.0.1 -i lo -j ACCEPT
+#/sbin/iptables -t filter -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+#/sbin/iptables -A INPUT -p udp --dport 137 -j ACCEPT
+#/sbin/iptables -A INPUT -p udp --dport 138 -j ACCEPT
+#/sbin/iptables -A INPUT -p tcp --dport 139 -j ACCEPT
+
+#/sbin/iptables -A INPUT -p tcp --dport 445 -j ACCEPT #/sbi/iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+#exit 0
+#
+# chmod +x myiptables
+Si nécessaire pour nettoyer
+# update-rc.d -f nom_fichier remove
+# update-rc.d myiptables start 20 2 . stop 20 0 1 3 4 5 6 .
+#
+# mkdir -m 0777 /partage
+# mkdir -m 0777 /zac
+# cd /etc/samba 
+# mv smb.conf smb.conf_old
+#
+# vim smb.conf
+Contenu du fichier
+[global]
+  	workgroup = workgroup
+ 	netbios name = Samba_serveur
+  	server string = Serveur de fichiers
+  	security = share
+  	browseable = yes
+  	hosts allow = 192.168.1.
+
+[public]
+  	path = /partage
+  	comment = Fichiers partagés
+  	read only = no
+  	guest ok = yes
+  	create mask = 0777
+  	directory mask = 0777
+
+# service smb restart
+# testparm
+# smbclient -L localhost
+# useradd zac 
+# smbpasswd -a zac
+   
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+Relever les adresses MAC de la carte réseau de chaque machine
+#----<+++++>-------------------------------------------------
+
+Sous Linux :
+Ouvrir un terminal et invoquer la commande suivante :
+# ifconfig
+Mot de passe :
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+eth0      Link encap:Ethernet  HWaddr 00:17:31:5F:EE:35  
+          inet adr:192.168.0.1  Bcast:192.168.0.255  Masque:255.255.255.0
+          adr inet6: fe80::217:31ff:fe5f:ee35/64 Scope:Lien
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:5431 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:4795 errors:0 dropped:0 overruns:0 carrier:2
+          collisions:0 lg file transmission:1000 
+          RX bytes:4969724 (4.7 MiB)  TX bytes:697691 (681.3 KiB)
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Si vous avez plusieurs cartes réseau regardez sur la seconde ligne à la suite de 'inet adr:'
+vous devez voir l'adresse IP de votre machine.
+
+---->>>>	Ici 192.168.0.1
+
+Si une seule carte est branchée, la carte active est celle qui a une adresse IP, l'autre est inactive.
+
+
+
+Adresse MAC de la carte :
+#------------------------
+
+Sur la première ligne, en face ethx, vous verrez
+
+	---->>>>  HWaddr (HardWare adresse) suivi de 12 caractères par groupe de deux séparés par des points.
+
+	Cette adresse est unique et permet d'identifier votre ordinateur de manière sure.
+	Notez cette adresse en face du nom de l'ordinateur et de d'adresse IP que vous souhaitez lui attribuer.
+	Il ne s'agit pas de l'adresse actuellement indiquée, mais de l'adresse que vous souhaitez lui donner.
+
+Plan de ton réseau :
+#-------------------
+
+	Serveur dhcp : sfr box		IP : 192.168.1.1
+
+	Machine 1 :			IP : 192.168.1.10	MAC : 
+	Machine 2 :			IP : 192.168.1.11	MAC :	
+	Machine 2 :			IP : 192.168.1.12	MAC :	
+	Machine 2 :			IP : 192.168.1.13	MAC :	
+
+
+Accéder au paramétrage de votre box (freebox, livebox, sfrbox...)
+#----<+++++>-----------------------------------------------------
+
+Pour travailler correctement, il faut attribuer une adresse IP fixe à une ou toutes vos machines par l'intermésiaire de la box de votre fournisseur d'accès. Pour faire cela :
+- soit votre fournisseur vous permet de le faire de n'importe où :
+	Ex : http://free.fr
+	L'interface de connection à distance permet par l'authentification
+	par identifiant et mot de passe.
+
+- soit votre fournisseur ne vous permet le faire que de chez vous
+	Ex : sfrbox
+	Ouvrir un navigateur internet puis dans la barre d'adresse taper :
+	Ex : http:// 192.168.1.1 (sinon lire la documentation de votre box pour connaitre l'adresse IP de la box)
+
+Onglet : Réseau
+	-->> DHCP
+Dans la section "adresse statiques" :
+Faites correspondre les adresses IP que vous souhaitez en face de l'adresse MAC de la machine.
+Refaites la démarche pour chaque machine.
+En général la prise en compte des changements demande un redémarrage de la box.
+
+
+
+Installer Samba
+#----<+++++>---
+
+Il faut maintenant installer les paquets nécessaires au fonctionnement du serveur Samba
+# apt-get install samba smb-client
+
+#-------------
+
+Avant de paramétrer Samba, il faut vérifier deux choses :
+
+	1 - que le démon qui gère celui-ci est en route
+	2 - que celui-ci sera lancé à chaque démarrage
+
+
+1 - 
+Pour lancer/arrêter/redémarrer ou connaitre l'état du daemon smbd :
+#--------------
+	# service smbd start
+	# service smbd stop
+	# service smbd restart
+	# service smbd status
+
+2 - 
+Pour vérifier si un service est lancé au démarrage :
+#-------------
+
+Installer le programme chkconfig qui ne l'est pas par défaut
+	# apt-get install chkconfig
+puis
+	# chkconfig --list (pour la liste des services)
+	# chkconfig --list smbd (pour voir uniquement le démon samba).
+
+#-------------
+
+Pour que ce service soit lancé à chaque démarrage, l'outil sysv-rc-conf est très pratique.
+
+Celui-ci n'est pas installé par défaut :
+	# apt-get install sysv-rc-conf
+	puis
+	# sudo sysv-rc-conf
+	
+	* Pour que le service se lance cochez les cases des colonnes 12345
+		Pour cocher/décocher une colonne il faut appuyer sur la barre d'espace.
+		ATTENTION !! Ici on travaille sans filet :
+		Une pression effectué par mégarde peut désactiver un autre service,
+		et provoquer des problèmes lors du redémarrage suivant.
+		Aucune confirmation n'est demandée.
+		On sort du programme par la touche "q"
+
+
+Configurer son pare feu
+#-----<++++>-----------
+
+Le paramétrage suivant est basique mais permet un protection équivalente au parefeur de Windows.
+
+iptables est l'outil qui permet le paramétrage du parefeu Netfilter intégré au noyau Linux
+
+Sources :
+www.commentcamarche.net/faq/1317-linux-installation-d-un-firewall#introduction
+
+F comme Flush : Nettoyer
+# iptables -t filter -F
+
+# iptables -t filter -X
+
+'''''''''''''''''''''''
+L comme List : Lister
+# iptables -L
+
+Après avoir appliqué les deux commandes de nettoyage la présentation doit ressembler à ceci :
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Table : filter
+Chain INPUT (policy ACCEPT))
+num  target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination         
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+La table, c'est filter, l'action peut être -A , -I , -P ou -D
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Ne pas lettre -t filter dans la ligne ne change rien. C'est l'option par défaut.
+
+#-----------------------
+Bloquer tous les paquets entrant
+# iptables -t filter -P INPUT DROP
+ou
+# iptables -P INPUT DROP
+
+#------------------------
+Pour que la machine locale puisse se voir
+# iptables -t filter -A INPUT -s 127.0.0.1 -i lo -j ACCEPT
+
+#------------------------
+ESTABLISHED et RELATED. ESTABLISHED signifie grossièrement que la connexion analysée
+par le firewall a été vue dans l'autre sens précédemment. 
+# iptables -t filter -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+#------------------------
+A comme Append : Ajouter
+Ici on ajoute les ports nécessaires au serveur Samba
+# iptables -A INPUT -p udp --dport 137 -j ACCEPT
+# iptables -A INPUT -p udp --dport 138 -j ACCEPT
+# iptables -A INPUT -p tcp --dport 139 -j ACCEPT
+# iptables -A INPUT -p tcp --dport 445 -j ACCEPT
+
+#------------------------
+D comme Delete : Effacer
+# iptables -t filter -D INPUT numéro_ligne_à_effacer (dans INPUT)
+
+#------------------------
+I comme Insert : Insérer
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Mon parefeu sous CentOs avec ouverture en entrée des ports pour ssh et Samba
+
+Table : filter
+Chain INPUT (policy DROP)
+num  target     prot opt source               destination         
+1    ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           state RELATED,ESTABLISHED 
+2    ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0           
+3    ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           
+4    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           state NEW tcp dpt:22 
+5    ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0           state NEW udp dpt:137 
+6    ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0           state NEW udp dpt:138 
+7    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           state NEW tcp dpt:139 
+8    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           state NEW tcp dpt:445 
+9    REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited 
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination         
+1    REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited 
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination         
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Sous CentOs la définition des règles suffit, par contre sous Ubuntu 10.04
+Si on se contente de ces modifications, la politique de gestion des paquets
+sera réinitialisé à ACCEPT à chaque redémarrage.
+Pour remédier à cela :
+
+Prérequis :
+Si l'on souhaite supprimer un script créé précédemmant:
+Il faut supprimer les liens vers le fichier nom_fichier
+# update-rc.d -f nom_fichier remove
+Supprimer le script dans le dossier init.d
+# cd /etc/init.d
+# rm nom_fichier
+
+Ecrire le script suivant (je l'ai nommé myiptables).
+Créer un fichier vide avec vim :
+# cd /etc/init.d
+# vim myiptables
+
+#--(contenu du fichier)--------
+Faire un copier/coller
+
+#!/bin/bash
+
+/sbin/iptables -P INPUT DROP
+/sbin/iptables -t filter -A INPUT -s 127.0.0.1 -i lo -j ACCEPT
+/sbin/iptables -t filter -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+/sbin/iptables -A INPUT -p udp --dport 137 -j ACCEPT
+/sbin/iptables -A INPUT -p udp --dport 138 -j ACCEPT
+/sbin/iptables -A INPUT -p tcp --dport 139 -j ACCEPT
+/sbin/iptables -A INPUT -p tcp --dport 445 -j ACCEPT
+/sbi/iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+exit 0
+#--------------------------------------------------
+
+Rendre le script éxécutable
+# chmod +x myiptables
+
+#--------------------------------------------------
+
+Pour qu'il se lance au démarrage créer un lien symbolique de lancement dans le dossier /etc/rc2.d/
+On suppose que l'on se trouve dans le dossier /etc/init/d
+# update-rc.d myiptables start 20 2 . stop 20 0 1 3 4 5 6 .
+ou
+# update-rc.d myiptables defaults
+
+Explications
+S = start
+20 = l'ordre de lancement du script.
+myiptables : le nom du script original
+
+
+#--------------------------------------------------
+'Paramétrage du serveur Samba dans la machine hôte'
+#--------------------------------------------------
+
+Partage sans authentification
+#----<+++++>-----------------
+
+Créer le dossier qui contiendra le partage
+# mkdir -m 0777 /partage
+
+Sauvegarder le fichier de configuration de samba
+# cd /etc/samba
+Renommer le fichier original smb.conf en smb.conf_old 
+# mv smb.conf smb.conf_old
+Créer un nouveau fichier vide
+# vim smb.conf
+Editer le fichier smb.conf
+
+------------ /etc/samba/smb.conf -------------------------------------------
+[global]
+  workgroup = workgroup
+  netbios name = Samba_serveur
+  server string = Serveur de fichiers 
+  security = share
+  browseable = yes
+  hosts allow = 192.168.1.
+
+[public]
+  path = /partage
+  comment = Fichiers partagés
+  read only = no
+  guest ok = yes
+  create mask = 0777
+  directory mask = 0777
+----------------------------------------------------------------------------
+
+Quelques remarques :
+
+	- Les clients Windows doivent tous être membres du même groupe de travail
+	  (en l'occurrence 'WORKGROUP').
+
+	- La directive 'netbios name' correspond au nom (max. 15 caractères) qui
+		apparaît dans le voisinage réseau des clients.
+
+	- Le nom du partage ([public]) ne doit pas dépasser 12 caractères.
+	
+	- L'option "create mask = 0777" permet de donner aux fichiers déposés sur 
+	  le partage public les permissions les plus larges :
+	  (modifications, effacement par tous les utilisateurs sous Linux).
+
+	- L'option "directory  mask = 0777" permet de donner aux répertoires déposés sur 
+	  le partage public les permissions les plus larges :
+	  (modifications, effacement par tous les utilisateurs sous Linux).
+
+	
+Tester la configuration :
+#----<+++++>------------
+
+	# testparm 
+	Load smb config files from /etc/samba/smb.conf
+	Processing section "[public]"
+	Loaded services file OK.
+	Server role: ROLE_STANDALONE
+	Press enter to see a dump of your service definitions
+
+	[global]
+	        server string = Serveur de fichiers
+	        security = SHARE
+	        hosts allow = 192.168.1.
+
+	[public]
+	        comment = Fichiers partagés
+	        path = /partage
+	        read only = No
+	        guest ok = Yes
+
+Lister les partages depuis le serveur
+#----<+++++>-------------------------
+
+'''''''''''''''''''''''''''''''''''''''''''''''
+'(taper [Entrée] à l'invite du mot de passe) :'
+'''''''''''''''''''''''''''''''''''''''''''''''
+	# smbclient -L localhost 
+	Password: 
+	Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.33-3.15.el5_4.1]
+	
+	        Sharename       Type      Comment
+	        ---------       ----      -------
+	        IPC$            IPC       IPC Service (Serveur Samba local)
+	        partage         Disk      Fichiers partagés
+	Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.33-3.15.el5_4.1]
+
+	        Server               Comment
+	        ---------            -------
+	                   
+	        Samba_serveur         Serveur de fichiers
+	
+	        Workgroup            Master
+	        ---------            -------
+	        WORKGROUP            Samba_serveur
+
+Client CentOS
+#----<+++++>-
+
+Raccourcis > Serveurs réseaux > Réseau Windows > workgroup > 
+
+	Sélectionner le serveur (Samba_serveur), puis le partage auquel on souhaite se
+	connecter.
+
+Les fichiers du partage sont complètement accessibles à tout le monde. Chacun
+peut les lire, les modifier ou même les effacer.
+
+Client Windows XP
+-----------------
+
+Favoris réseau > Voir les ordinateurs du groupe de travail > 
+
+	Là encore, sélectionner le serveur, puis le partage auquel on souhaite
+	accéder.
+
+
+
+
+Serveur de fichiers avec authentification
+#----<+++++>-----------------------------
+
+Créer le répertoire qui contiendra les partages :
+
+	# mkdir -m 0777 /zac
+
+Dans /etc/samba/smb.conf, on passe la sécurité au niveau utilisateur :
+
+--8<---------- /etc/samba/smb.conf -------------------------------------------
+[global]
+	workgroup = workgroup
+	netbios name = Serveur Samba
+	server string = Serveur de fichiers
+	browsable = yes
+	hosts allow = 192.168.1.
+
+[perso_zac]
+ 	path = /zac
+	comment = Fichiers partagés
+	security = user
+	encrypt passwords = yes
+	read only = no
+	# Accès possible seulement pour l'utilisateur défini
+	valid users = zac
+
+--8<--------------------------------------------------------------------------
+
+Tester la configuration :
+
+	# testparm 
+	Load smb config files from /etc/samba/smb.conf
+	Processing section "[zac]"
+	Loaded services file OK.
+	Server role: ROLE_STANDALONE
+	Press enter to see a dump of your service definitions
+
+	[global]
+	        server string = Serveur de fichiers
+	        hosts allow = 192.168.1.
+
+	[perso_zac]
+	        comment = Fichiers privés
+	        path = /zac
+	        read only = No
+
+Ne pas oublier de redémarrer Samba le cas échéant :
+
+	# service smb restart 
+
+Lister les partages depuis le serveur. Taper [Entrée] à la demande de saisie de
+mot de passe :
+
+	# smbclient -L localhost 
+	Password: 
+	Anonymous login successful
+	Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.33-3.14.el5]
+
+	        Sharename       Type      Comment
+	        ---------       ----      -------
+	        zac	        Disk      Fichiers privés
+	        IPC$            IPC       IPC Service (Serveur de fichiers)
+	Anonymous login successful
+	Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.33-3.14.el5]
+
+	        Server               Comment
+	        ---------            -------
+	        ZAC	             Serveur de fichiers
+
+	        Workgroup            Master
+	        ---------            -------
+	        WORKGROUP	     ZAC 
+
+Ensuite, il faut créer les utilisateurs Samba sur le serveur. Ceux-ci doivent
+disposer d'un compte Linux. Par exemple, si l'utilisateur 'zac' n'existe
+pas sur le serveur :
+
+	# useradd zac 
+	# smbpasswd -a zac 
+	New SMB password:
+	Retype new SMB password:
+	startsmbfilepwent_internal: file /etc/samba/smbpasswd did not exist. 
+	File successfully created.
+	Added user zac.
+
+Remarque : 
+
+	- La création d'un utilisateur Samba ne nécessite pas forcément l'activation
+		du compte système par la définition d'un mot de passe système classique.
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Pour l'instant le fichier smbpasswd est introuvable mais cela fonctionne
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Théoriquement on devrait obtenir ceci :
+Les utilisateurs Samba figurent dans le fichier /etc/samba/smbpasswd :
+
+	# cat /etc/samba/smbpasswd 
+	zac:500:8CBD3AFA1C4E39FA5A53F840615C56B7: ...
+
+Accès aux partages
+------------------
+
+La seule différence par rapport au partage publiquement accessible, c'est qu'il
+faut fournir un nom d'utilisateur et un mot de passe pour accéder au partage de
+fichiers.
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Mon fichier smb.conf avec accès pour tous sans authentification au partage 'public'
+Le partag 'perso_jpa' est accessible par identifiant et mot de passe uniquement par jpantinoux.
+
+
+[global]
+        workgroup = workgroup
+        netbios name = bart
+        server string = Serveur Samba
+        browsable = yes
+        hosts allow = 192.168.0.
+        
+[public]
+        path = /public
+        comment = Fichiers partagés
+        security = share
+        read only = no
+        guest ok = yes
+        create mask = 0777
+        directory mask = 0777
+       
+[perso_jpa]
+        path = /prive
+        comment = Fichiers perso jpa
+        security = user
+        encrypt passwords = yes
+        read only = no
+	# Accès possible seulement pour l'utilisateur défini
+        valid users = jpantinoux
+        
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Ensuite il suffit de redémarrer le serveur samba :
+(comme après n'importe quelle modification d'ailleurs)
+
+# service smbd restart
+
+Synchronisation des dossiers /home de chaque machines vers le disque externe
+#----<+++++>----------------------------------------------------------------
+
+Ici il faut utiliser un script déclanché par chaque utilisateur nanuellement.
+On ne peut pas faire d'automatistion complète de la sauvegarde puisque les machines
+ne tournent pas en pernamence.
+
+Il faut mettre en oeuvre dans le script "rsync"
+Et éventuellement échanger les clés RSA entre chaques machines pour ne pas avoir à
+taper de mot de passe à chaque fois. (A voir)
+
+Ouf, ça doit marcher.

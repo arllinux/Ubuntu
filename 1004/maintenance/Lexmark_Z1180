@@ -1,0 +1,59 @@
+#--------------------------------------------------------------
+Installation imprimante Lexmark Z1180
+#-------------------------------------------------------------
+Testé pour imprimante de Bou
+Le 14/03/2012
+
+Se rendre sur le site
+
+http://doc.ubuntu-fr.org/imprimante_lexmark_z600
+pour une doc complète
+
+Sinon
+
+Télécharger
+http://www.4shared.com/get/iSu3GrWx/z600cups_10-2_i386.html
+http://www.4shared.com/file/HUIx7uOo/z600llpddk_20-2_i386.html
+
+Lors du téléchargement, Ubuntu propose soit de sauver le paquet sur votre disque dur,
+soit de l'ouvrir dans gdebi, l'installateur graphique de Ubuntu.
+Le plus simple est d'accepter l'ouverture directe, et gdebi installe
+votre paquet sans aucune ligne de commande.
+
+Puis :
+# service cups restart
+
+Avant de tester l'impression :
+# /usr/lib/cups/backend/z600
+
+Si vous avez ce message d'erreur :
+
+	error while loading shared libraries: libstdc++.so.5: cannot open shared object file: No such file or directory
+
+Il vous manque la librairie libstdc++5 que vous pouvez télécharger ici.
+
+http://ftp.fr.debian.org/debian/pool/main/g/gcc-3.3/libstdc++5_3.3.6-18_i386.deb
+
+Le pilote z600 devrait désormais apparaitre dans la liste des pilotes. Dans Système –>Administration –> Impression ? 
+
+Imprimantes compatibles
+
+Liste des imprimantes compatibles avec le driver Z600
+
+Lexmark Z515
+Lexmark Z517
+Lexmark Z640
+Lexmark Z705 (parfois problèmes de marges)
+Lexmark 1100
+Lexmark X1150
+Lexmark X1190
+Lexmark X1170
+Lexmark X1180
+Lexmark X1250
+Lexmark X1270
+Lexmark X1290
+Dell photo printer 720
+Dell A920   
+
+Manque :
+libcupsys2-gnutls10 (>= 1.1.20final-1)

@@ -1,0 +1,64 @@
+
+#------------------------------------------
+Retrouver le contrôle de volume sous Lucid
+#------------------------------------------
+
+Avec la version finale d’Ubuntu 10.04, le contrôle de volume, qui se trouvait précédemment dans la zone de notification du tableau de bord du haut, n’apparaît plus. Un peu gênant tout de même.
+
+Après une petite recherche sur internet, il apparaît que, pour résoudre ce problème, il y a deux possibilités: la première consiste à ajouter au tableau de bord l’applet de notification. Mais celle-ci contient aussi d’autres contrôles en plus du volume. Esthétiquement, comme les icônes de cette applet sont relativement fort espacées, ce n’est pas très heureux.
+La deuxième solution consiste à utiliser l’application gnome-volume-control-applet qui est le contrôle qui était présent sous Ubuntu 9.10. Pour l’utiliser, il suffit de taper dans un terminal:
+
+gnome-volume-control-applet &
+
+Pour que cette application soit lancer à chaque démarrage, il faut l’ajouter aux applications au démarrage, menu Système/Préférences/Applications au démarrage. La prochaine fois que vous lancerez une session Gnome, le contrôle de volume sera lancé en même temps.
+
+------------------------------
+Lecture Divx sous Ubuntu 10.04
+------------------------------
+
+En cas lors de fifficultés lors de la lecture de vidéo au format divx avec vlc
+(Coupures, pixéllisation, etc...)
+Conseil trouvé sur forum http://forum.ubuntu-fr.org/viewtopic.php?pid=3518848
+S'il n'est pas installé, essaie d'installer le paquet "libavcodec-extra-52"
+via Synaptic.
+Problème réglé sous Ubuntu 10.04 (Acer X3200)
+
+--------------------------
+Ajouter le dépot Médibuntu
+--------------------------
+1er méthode : via le terminal
+sudo wget http://www.medibuntu.org/sources.list.d/`lsb_release -cs`.list
+--output-document=/etc/apt/sources.list.d/medibuntu.list && sudo apt-get -q
+update && sudo apt-get --yes -q --allow-unauthenticated install
+medibuntu-keyring && sudo apt-get -q update
+
+2ème méthode : via le terminal
+sudo wget http://www.medibuntu.org/sources.list.d/`lsb_release -cs`.list
+--output-document=/etc/apt/sources.list.d/medibuntu.list
+
+wget -q http://packages.medibuntu.org/medibuntu-key.gpg -O- | sudo apt-key add
+-
+
+sudo apt-get -q update
+
+sudo apt-get --yes -q --allow-unauthenticated install medibuntu-keyring
+
+sudo apt-get -q update
+
+Explications : l'installation du dépôt Medibuntu (ligne 1) nécessite
+d'installer un paquet « medibuntu-keyring » qui contient la clé GPG à votre
+gestionnaire de certificats, ce qui est nécessaire pour authentifier les
+paquets issus du dépôt. L'ironie du sort étant que l'installation de ce paquet
+nécessite aussi cette même clé, d'où les options pour l'installer une première
+fois sans la vérifier (ligne 3). 
+
+3ème méthode : graphiquement
+deb http://packages.medibuntu.org/ lucid free non-free
+
+wget -q http://packages.medibuntu.org/medibuntu-key.gpg -O- | sudo apt-key add
+-
+
+-------------------
+Lecture DVD protégé
+-------------------
+sudo sh /usr/share/doc/libdvdread4/install-css.sh

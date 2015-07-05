@@ -1,0 +1,36 @@
+# Pour lire les animations flash
+adobe-flashplugin
+# Avoir accès au format non libre
+ubuntu-restricted-extras
+# Lire les DVD zonés
+libdvdcss2
+# Thème d'icones Tangerine
+tangerine-icon-theme
+# Utilitaire de gestion de la machine
+conky
+# Retouche d'images
+gimp
+# Frappe clavier
+klavaro
+# Lecteur vidéo
+vlc
+# Dessin vectoriel
+inkscape
+# PAO
+scribus
+# LibreOffice
+libreoffice
+libreoffice-l10n-fr
+hunspell-dictionary-fr
+libreoffice-gnome
+# Thunderbird
+thunderbird
+thunderbird-locale-fr
+# k3b
+k3b
+libk3b6-extracodecs
+lame
+dvdrtools
+language-pack-kde-fr
+# Pack francais firefox
+firefox-locale-fr

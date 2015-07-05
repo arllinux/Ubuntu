@@ -1,0 +1,45 @@
+#!/bin/bash
+
+#titre de lancement de la sauvegarde générale
+echo
+echo "LA SAUVEGARDE GENERALE EST EN COURS D'EXECUTION AVANT ARRET DE L'ORDINATEUR"
+echo
+# pour donner un nom "raccourci" (incluant le chemin) au fichier donnant l'historique des installations,
+# mises à jour et désinstallations de paquets, fichier nommé "historique_inst_maj_desinst.log" :
+  histor=/home/jpantinoux/Documents/Sauvegardes/historique_inst_maj_desinst.log
+  
+# pour mettre à jour le fichier actualisé de l'historique des installations, mises à jour et désinstallations de paquets :
+zgrep -h " installed \| upgrade \| remove " /var/log/dpkg.log* | sort | uniq > $histor
+  
+# pour donner un nom "raccourci" (incluant le chemin) au fichier backuperror.log :
+backup=/home/jpantinoux/Documents/Sauvegardes/backuperror.log
+  
+# Sauvegarde de '/home' vers la partition de sauvegarde du deuxième disque dur :
+rsync -av --del --stats  --filter "- .thumbnails/" --filter "- .Trash/" --filter "- *.tmp" --filter "- *.iso" --filter "- lost+found/" --filter "- .cache/" --filter "- .beagle/"  /home/jpantinoux/Documents /home/jpantinoux/save_extinction 2> $backup
+  
+# Sauvegarde du bureau (/home/votre_identité/Desktop) vers la partition ext4 du disque dur externe :
+#rsync -av --stats --filter "- *.iso" /home/votre_identité/Desktop/ /media/Sauve_home/SauvHomeLieuDesktop/ 2>> $backup
+  
+# Sauvegarde du dossier 'Documents' (/home/votre_identité/Documents) vers la partition ext4 du disque dur externe :
+#rsync -av --stats --filter "- *.iso" /home/votre_identité/Documents/ /media/Sauve_home/SauvHomeLieuDocuments/ 2>> $backup
+  
+# Insertion de la date à la fin de la liste d'erreur si le fichier backuperror n'est pas vide (c'est à dire s'il y a des erreurs),
+# ce que vérifie l'option "-s" :
+if [ -s $backup ]; then
+{
+  date >> $backup
+}
+fi
+  
+# Arrêt de l'ordinateur :
+# Sous LUCID :
+#dbus-send --print-reply --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.RequestShutdown
+shutdown -P now
+
+# Ajouter dans le fichier /etc/sudoers
+# export EDITOR=vim && visudo
+
+# Il faut ajouter ceci :
+
+# User privilege specification
+# jpantinoux ALL = NOPASSWD: /sbin/halt

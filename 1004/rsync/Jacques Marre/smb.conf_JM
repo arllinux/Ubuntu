@@ -1,0 +1,27 @@
+[global]
+	# Pour les machines Windows (elle doivent toutes appartenir à ce groupe	
+	workgroup = workgroup
+	# Nom de la machine sur le réseau
+	netbios name = bart
+	# Dénomination du serveur dans réseau Windows
+	server string = Serveur Samba
+	# Sécurité au niveau utilisateur avec mot de passe
+	security = user
+	encrypt passwords = yes
+	# On peut naviguer dans les dossiers
+	browsable = yes
+	# Accès réservé aux machines de ce groupe
+	hosts allow = 192.168.0.
+	# Pour créer le fichier smbpasswd (ne marche pas à creuser)
+	# smb passwd file = /etc/samba/smbpasswd
+
+[public]
+	path = home/public
+	comment = Fichiers partagés
+	read only = no
+	guest ok = yes
+
+[perso]
+	path = /prive
+	comment = Fichiers perso
+	read only = no

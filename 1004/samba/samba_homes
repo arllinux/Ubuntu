@@ -1,0 +1,11 @@
+Le répertoire personnel
+ 
+# accès au rép. personnel de chaque utilisateur. 
+# la valeur du champ comment apparaitra dans le voisinage réseau 
+# inutile pour cette section de préciser le path, c'est celui de l'utilisateur, en fait /home/%u 
+[homes]
+	path = /home/jpantinoux
+	comment = Répertoire personnel 
+	browsable = yes 
+	writable = yes 
+	create mode = 0700 

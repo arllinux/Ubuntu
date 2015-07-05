@@ -1,0 +1,28 @@
+# Pour lire les animations flash
+adobe-flashplugin
+# Pour lire les animation java
+sun-java6-plugin
+# Avoir accès au format non libre
+ubuntu-restricted-extras
+# Lire les DVD zonés
+libdvdcss2
+# Thème d'icones Tangerine
+tangerine-icon-theme
+# Utilitaire de gestion de la machine
+conky
+# Apprentissage de la frappe
+klavaro
+# Retouche d'images
+gimp
+# Lecteur vidéo
+vlc
+# Dessin vectoriel
+inkscape
+# PAO
+scribus
+# LibreOffice
+libreoffice
+libreoffice-l10n-fr
+hunspell-dictionary-fr
+libreoffice-pdfimport
+libreoffice-gnome

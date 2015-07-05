@@ -1,0 +1,15 @@
+[global]
+	workgroup = workgroup	
+	netbios name =serveur samba
+	server string = serveur de fichiers
+	security = share
+	browseable = yes
+	hosts allow = 192.168.0.
+
+[homes]
+	path = /home/jpantinoux
+	comment = fichiers partagés
+	read only = no
+	guest ok = yes
+	create mode = 0700
+	

@@ -1,0 +1,779 @@
+#=============================================#
+JPA avril 2012
+_______________________________________________
+
+Installation Ubuntu 10.04.2 Desktop (détaillée)
+_______________________________________________
+
+
+Avant de graver le CD d'installation
+	Vérifier si nous disposons d'un processeur 32 ou 64 bits
+	[root@gaston:~] # cat /proc/cpuinfo
+
+	Deux lignes nous indiquent, dans la machine à partir de laquelle j'ecris, cette information :
+		- model name	: AMD Athlon(tm) 64 Processor 3500+
+		- flags		: fpu vme de pse tsc msr pae mce cx8 apic mtrr pge mca cmov pat pse36 clflush mm
+		fxsr sse sse2 syscall nx mmxext fxsr_opt rdtscp lm 3dnowext 3dnow up extd_apicid pni cx16 lahf_l
+		svm extapic cr8_legacy
+
+	Dans la deuxième ligne c'est le flag "lm" qui signifie 64 bits.
+
+Toujours vérifier la somme de contrôle du Téléchargement
+#======================================================#
+
+Sous GNU/Linux
+	Ouvrir la console
+	Se déplacer dans le répertoire où de trouve l'image .iso téléchargée
+		$ md5sum ubuntu-10.04.2-desktop-i386-fr.iso
+		a0ca51b28f5520a3873127fb0080f82f  ubuntu-10.04.2-desktop-i386-fr.iso
+
+Copier la suite de 32 caractères dans un fichier Gedit
+
+Rendez vous à l'adresse suivante :
+http://doc.ubuntu-fr.org/tutoriel/comment_verifier_l_integrite_de_son_image_cd
+Sélectionnez l'empreinte à 32 caractères qui correspond à l'image .iso
+
+	Collez la dans Gedit au dessous de la première
+	Vous devez obtenir quelque chose qui ressemble à ceci :
+		a0ca51b28f5520a3873127fb0080f82f
+		a0ca51b28f5520a3873127fb0080f82f
+
+Si ce n'est pas le cas, supprimez le téléchargement et recommencez.
+
+#===================#
+' 1 - Installation '
+#===================#
+
+La procédure d'installation n'est pas traité ici.
+La meilleur manière de la mémoriser est de pratiquer plusieurs fois jusqu'a ce que vous 
+la fassiez "avec le sourire" :-)
+
+La seule consigne que je vous donne est le shéma de partitionnement du disque dur :
+
+Le premier disque dur est appelé /dev/sda
+/dev/sda1	/boot		120 MB		Ext2
+/dev/sda5			2 GB		swap
+/dev/sda6	/		78 GB		Ext4
+
+Cet exemple est donné pour un disque de 80 GB.
+
+Si voulez installer un double démarrage : Windows/GNU-Linux (ce cas peut être utile si
+l'on ne peut pas réinstaller Wimdows.
+
+Il faut impérativement faire un nettoyage et une défragmentation du disque.
+Si les outiles internes à Windows le permettent redimentionnez la partition C:\ à 20 GB
+Sinom utiliser un outil sur un liveCD comme Gparted ou Partition Magic
+
+Donc
+/dev/sda1			20 GB		ntfs	(c'est la partition C:\)
+/dev/sda2			20 GB		ntfs	(ce sera la parttion d'échange entre Win el GNU/Linux : D:\)
+/dev/sda5       /boot           120 MB		Ext2
+/dev/sda6                       2 GB		swap
+/dev/sda7       /               38 GB		Ext4
+
+Cet exemple est donné pour un disque de 80 GB.
+
+====
+========
+====
+
+#=========================#
+' 2 - Premier redémarrage '
+#=========================#
+
+AVANT DE RENTRER DANS L'INTERFACE GRAPHIQUE 
+
+Ouvrir une console. (ctrl + alt + F1, F2 ...)
+
+Activer le compte root :
+
+		$ sudo passwd root
+		[sudo] password for jpantinoux
+		Entrez le nouveau mot de passe UNIX
+
+	Cette opération a pour but d'avoir un compte root avec son propre mot de passe.
+	Cela permet de se mettre en root et d'effectuer les opérations nécessaires à l'administration de la machine.
+	Cela demande de mémoriser un nouveau mot de passe.
+	Ensuite inutile de retaper sudo à chaque commande.
+
+		Pour passer en root :
+		$ su -
+		Mot de passe :
+	
+		Pour quitter le compte root :
+		Ctrl + d
+
+	Dans les manipulations ci-dessous toutes les opérations sont effectuées en root.
+
+Effectuer la mise à jour initiale :
+
+		# apt-get update
+		# apt-get dist-upgrade
+				La commande dist-upgrade effectue la fonction upgrade en y ajoutant une gestion intelligente des
+        changements de dépendances dans les nouvelles versions des paquets ; apt-get possède un système
+        « intelligent » de résolution des conflits et il essaye, quand c'est nécessaire, de mettre à niveau
+        les paquets les plus importants avant les paquets les moins importants.
+	(Extrait de "man apt-get")
+
+#=======================================#
+' 3 - Installer quelques outils de base '
+#=======================================#
+
+	# apt-get install ...
+	--> vim
+	--> subversion
+#
+#==============================#
+' 4 - Récuperer la doc sur svn '
+#==============================#
+
+# cd /usr/shrare
+
+# svn co svn+ssh://sloteur@svn.tuxfamily.org/svnroot/slocentos/ubuntu1004
+ou en anomyme :
+# svn co svn://svn.tuxfamily.org/svnroot/slocentos/ubuntu1004
+
+La documetation pour la suite de l'install se trouve dans :
+/usr/share/ubuntu1004/1004/config/regis/ubuntu_desktop_regis
+
+
+Redémarrer 
+	
+	# reboot
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ 'Paramétrage en automatique'		@
+@ './installer_invites.sh'				@
+@ 'Points 5 et 6'									@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+#========================================#
+' 5 - Mise en couleur invite de commande '
+#========================================#
+
+Passer en root
+$ su -
+password:
+
+Se déplacer dans le dossier inv_cmd couleur
+# cd /usr/share/ubuntu1004/1004/config/regis/inv_cmd_couleur
+# ls -lh
+	-rwxr-xr-x 1 root root 1,4K 2012-04-09 14:54 installer_invites.sh
+	-rw-r--r-- 1 root root  333 2012-04-09 14:56 invite_root_regis
+	-rw-r--r-- 1 root root  331 2012-04-09 14:57 invite_user_regis
+	-rw-r--r-- 1 root root  744 2012-04-09 15:59 vimrc.loc
+
+
+
+Début de la partie automatisée
+#-----------------------------
+Lancer le script
+# ./installer_invites.sh
+
+#====================================#
+' 6 - Paramétrer les alias pour bash '
+#====================================#
+
+CETTE PARTIE EST AUTOMATISEE DANS LE SCRIPT "./installer_invites.sh"
+Il se trouve dans le répertoire /usr/share/ubuntu1004/1004/config/regis/inv_cmd_couleur
+
+	# vim .bashrc
+		Ajouter cette ligne :
+		alias aa='apt-get install'
+		alias uu='apt-get update & apt-get dist-upgrade'
+
+		Modifier celle-ci :
+		alias ll='ls -lh' au lieu de : alias ll='ls -alF'
+
+Retour en utilisateur simple
+	Ctrl + d
+	$ vim .bashrc
+		Ajouter cette ligne :
+		alias aa='sudo apt-get install'
+		alias uu='sudo apt-get update & sudo apt-get dist-upgrade'
+
+		Modifier celle-ci :
+		alias ll='ls -lh' au lieu de : alias ll='ls -alF'
+
+
+
+#=========================================#
+' 7 Premiers réglages interface graphique '
+#=========================================#
+
+Se connecter en graphique sous le nom d'utilisateur, puis effectuer les réglages de la résolution d'écran.
+-------------------------
+
+	Système
+		--> Préférences
+			Ecrans
+				Adapter au format de votre écran (1024 x 768)
+
+En profiter au passage pour modifier l'apparence du bureau par défaut que je trouve hideux
+											-----------------------------------
+
+Petits réglages :
+	--> Préférences
+		Economiseur d'écran
+			Désactiver toutes les options, régler le temps sur 2 heures.
+
+Si vous désirez d'autres paramètres voir gconf-editor (ex : faire apparaitre les icones sur le bureau)
+
+                       -----------------------------------
+           
+	Système
+		--> Préférences
+			--> Apparence
+				Thèmes :	"Clearlooks"
+				Arrière plan :	Foncé au moins sur le côté droit (conky)
+				Effets visuels :"Extras"
+					Personnaliser
+						--> Icones
+							--> Humanity
+
+Personnalistion du terminal graphique
+-------------------------------------
+
+	Edition
+		--> Préférences du profil
+			Onglet Général
+			[ ] Utiliser la police à chasse fixe du système
+				Police : Monospace bold 11
+
+			Onglet Couleurs
+			[ ] Utiliser les couleurs du thème système
+				Premier plan, arrière plan et gras
+				Palette prédéfinie : 	[x] Gris sur noir
+				
+				Palette
+				Palette prédéfinie :	[x] XTerm
+
+			Onglet Arrière-plan
+			[ ] Couleur unie
+			[x] Arrière plan transparent (75 %)
+
+			Onglet défilement
+			La barre de défilement est : [x] Désactivée
+
+Personnalisation de Nautilus
+----------------------------
+
+	Edition
+		Préférences
+			Onglet Comportement
+			[ ] Demander avant de vider la corbeille ou de supprimer des fichiers
+			[x] Inclure une commande supprimer qui ignore la corbeille
+
+			Onglet Aperçu
+			[x] Afficher les vignettes : Toujours
+
+
+#=======================================#
+' 8 - Installer quelques outils de base '
+#=======================================#
+
+	# apt-get install openssh-server ntp mesa-utils (glxgears)
+
+
+Cette partie est optionnelle
+============================
+============================
+
+Si le confort de lecture n'est pas satisfaisant lancer
+# dpkg-reconfigure console-setup
+	- Generic 105-key (Intl) PC
+	- France
+	- France - Alternative
+	- Pas de touche AltGr
+	- Pas de touche "compose"
+	- UTF-8
+	- Latin 1 et Latin 5
+	- VGA
+	- 16
+	- /dev/tty[1-6]
+Ceci sont les réglages sur la machine où je fais les test. A adapter
+
+
+#=====================================#
+' 9 - Personnaliser le menu de Grub2 '
+#=====================================#
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@	'A EFFECTUER MANUELLEMENT AVEC BEAUCOUP DE PRECAUTIONS'		@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+Supprimer les anciens noyaux
+#--------------------------#
+
+1 - Lister les noyaux présents  :
+#-------------------------------#
+
+	# dpkg -l | grep linux-image
+
+	rc  linux-image-2.6.32-24-generic      2.6.32-24.43   Linux kernel image for version 2.6.32 on x86/x86_64
+	ii  linux-image-2.6.32-32-generic      2.6.32-32.62   Linux kernel image for version 2.6.32 on x86/x86_64
+	ii  linux-image-generic                2.6.32.32.38   Generic Linux kernel image
+
+2 - Vérifier quel noyau est utilisé :
+#-----------------------------------#
+	# uname -r
+	2.6.32-32-generic
+
+	On voit donc que le noyau à supprimer est le 2.6.32-24
+	# apt-get autoremove linux-image-2.6.32-24-generic (à adapter)
+	# update-grub
+
+3 - Peaufiner le menu de Grub
+#----------------------------#
+
+
+Effectuer une copie du fichier grub
+# cp /etc/default/grub grub_old
+#
+Puis éditer avec vim le fichier /etc/defaults/grub
+# vim /etc/default/grub
+
+	../..
+	# If you change this file, run 'update-grub' afterwards to update
+	# /boot/grub/grub.cfg.
+
+	# Démarre par défaut sur la ligne 1 du chargeur de démarrage (0)
+	GRUB_DEFAULT=0
+	
+	# Si décommenté, masque le chargeur de démarrage
+	#GRUB_HIDDEN_TIMEOUT=0
+	
+	#GRUB_HIDDEN_TIMEOUT_QUIET=true
+	
+	# Indiquer ici, en secondes, une durée qui permette le chois de l'OS.
+	GRUB_TIMEOUT=10
+	
+	GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+	
+	# Rend le système moins bavard au démarrage
+	GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+	
+	GRUB_CMDLINE_LINUX=""
+	../..
+
+Ceci n'est q'un extrait. C'est la ligne GRUB_DEFAULT=0 qui indique quelle est la ligne sélectionnée par défaut.
+Si par exemple "Windows" est sur la ligne 4 et que l'on souhaite en faire notre choix (mais quelle drôle d'idée !!), il suffit d'écrire :
+GRUB_DEFAULT=4 
+
+Enregistrer et fermer le fichier
+:wq
+puis
+
+# update-grub
+
+4 - Suppression de la ligne Memtest86
+#-----------------------------------#
+
+Il suffit dans ce cas de rendre inactif le script 20_memtest86+
+Pour cela il faut se rendre dans le dossier :
+cd /etc/grub.d/
+
+Puis rendre le fichier 20_memtest86+ non exécutable
+	# chmod -x 20_memtest86+
+	puis
+	# update-grub
+
+Au redémarrage il n'y aura plus que 2 lignes dans le menu (trois si vous avez Windows)
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@'Parties automatisées par le script'   @
+@'./ajout_suppr_apt.sh'                 @
+@'Parties 10, 11, 12 et 13'             @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+#================================#
+' 10 - Quelques réglages de base '
+#================================#
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@                                                                                            @
+@   Les opérations de suppression et d'ajout d'applications sont automatisées                @
+@   Comme nous avons récupéré la doc de notre dépôt svn, se rendre                           @
+@   après être passé en root dans le dossier suivant :                                       @
+@   # cd /usr/share/ubuntu1004/1004/config/regis/                                            @
+@   Puis lancer le script                                                                    @
+@   # ./ajout_suppr_apt.sh                                                                   @
+@   # Vérifier la liste de application dans les fichiers dell_appli_1004 et add_appli-1004   @
+@                                                                                            @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+Début de la partie automatisée
+#-----------------------------
+
+ATTENTION :
+En premier lieu n'oubliez pas de faire une copie du fichier original que vous pourrez
+remettre en place en cas d'erreur de manipulation.
+
+
+Configurer les dépôts dans /etc/apt/source.list
+	Supprimer le contenu du fichier et le remplacer par ceci ;
+-----------------------------------------------------------------------------------------
+deb http://fr.archive.ubuntu.com/ubuntu/ lucid main restricted universe multiverse
+deb http://fr.archive.ubuntu.com/ubuntu/ lucid-updates main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu lucid-security main restricted universe multiverse
+deb http://archive.canonical.com/ubuntu lucid partner
+deb http://packages.medibuntu.org/ lucid free non-free
+------------------------------------------------------------------------------------------
+
+Mettre à jour la liste des paquets
+	# apt-get update
+
+le dépôt Medibuntu affiche une erreur.
+	# apt-get install medibuntu-keyring
+        # apt-get update
+
+Ajouter le dépot ppa pour Libre office
+#=====================================#
+
+# add-apt-repository ppa:libreoffice/ppa
+# apt-get update
+
+Le dépôt ne s'inscrit pas dans le source.list, mais se trouve dans le répertoire
+source.list.d
+[jpantinoux@gaston:/etc/apt/sources.list.d] $ ll
+total 4,0K
+-rw-r--r-- 1 root root 63 2011-11-25 02:41 libreoffice-ppa-lucid.list
+
+
+#=========================================================#
+' 11 - Supprimer les programmes qui ne me sont pas utiles '
+#=========================================================#
+
+# apt-get autoremove --purge pitivi gwibber ubuntuone-client empathy vinagre rdesktop tsclient simple-scan tomboy evolution software-center update-manager openoffice.org-*
+
+
+#=======================================#
+' 12 - Ajouter les programmes manquants '
+#=======================================#
+
+# aa gimp vlc klavaro adobe-flashplugin ubuntu-restricted-extras libdvdcss2 tangerine-icon-theme conky inkscape scribus libreoffice libreoffice-l10n-fr hunspell-dictionary-fr thunderbird thunderbird-locale-fr k3b libk3b6-extracodecs lame dvdrtools language-pack-kde-fr
+
+
+#================================================#
+' 13 - Pour avoir les effets de bureau avancés : '
+#================================================#
+# aa compizconfig-settings-manager
+
+Pour effectuer les réglages il faut se rendre dans :
+	Système
+		Préférences
+			Gestionnaire de configuration CompizConfig
+			
+			Bureau
+				- Cubes de bureau
+				- Rotation du cube
+				- Exposé
+						Cliquer sur le bouton en bout de ligne
+							Top Left (ou a votre gout)
+
+Fin de l'automatisation
+=======================
+
+#==================================#
+' 14 - Installer Sype manuellement '
+#==================================#
+
+Pour 32-bit
+$ wget http://www.skype.com/go/getskype-linux-beta-ubuntu-32
+Pour 64-bit
+$ wget http://www.skype.com/go/getskype-linux-beta-ubuntu-64
+
+Vous aurez ensuite besoin des librairies suivantes
+
+$ sudo apt-get install libqt4-dbus libqt4-network libqt4-xml libasound2
+
+Maintenant, installez SKYPE
+
+$ sudo dpkg -i getskype-linux-beta-ubuntu-32 ou 64
+
+Si vous avez encore des erreurs, tapez juste la commande suivante
+
+$ sudo apt-get -f install
+Cela installera les dépandances et SKYPE.
+
+----------------------------------------
+
+#=====================================================#
+' 15 - Vérifier en graphique par Sources de logiciels '
+#=====================================================#
+
+	Système
+		Administration
+			Source de logiciels
+				Onglet 'Locigiels Ubuntu'
+				[x] Logiciel libre maintenu par Canonical (main)
+				[x] Logiciel libre maintenu par la communauté (universe)
+				[x] Pilotes propriétaires de périphériques (restricted)
+				[x] Logiciels soumis au droit d'auteur ou à des restrictions légales (multiverse)
+				[ ] Code source
+				Serveur pour France
+				
+				Onglet 'Autres logiciels'
+				[x] http://archive.canonical.com/ubuntu lucid partner
+				[x] http://packages.medibuntu.org/ lucid free non-free
+				[x] http://ppa.launchpad.net/libreoffice/ppa/ubuntu lucid main
+
+				Onglet 'Mises à jour'
+				[x] Mises à jour de sécurité (lucid-security)
+				[x] Mises à jour recommandées (lucid-updates)
+				[ ] Mises à jour suggérées (lucid-proposed)
+				[ ] Mises à jour non gérées (lucid-backports)
+				
+				Mises à jour automatiques
+				[ ] Vérifier les mises à jour :	Tous les jours
+				(o) Installer les mises à jour de sécurité sans confirmation
+				Mise à niveau de la distribution
+				- Version offrant un support à long terme uniquement
+
+#======================================#
+' 16 - Activer/désactiver des services '
+#======================================#
+
+L'interface graphique ne permet pas de tout désactiver. Il faut rajouter "sysv-rc-conf"
+
+# aa sysv-rc-conf
+#--------------------------------#
+
+L'interface est nettement moins sympathique, mais elle permet d'activer/désactiver tous les services au démarrage.
+
+    * Chaque ligne représente un service.
+    * Chaque colonne représente un runlevel (état du système: démarrage, en cours d'utilisation, arrêt, redémarrage...).
+    * Le runlevel de travail normal sous Ubuntu est 2.
+    * Utilisez CTRL+N pour passer à la page suivante des services. CTRL+P pour la page précédente.
+    * Utilisez les flèches pour vous déplacer.
+    * Utiliser la barre Espace pour cocher/décocher une case.
+    * Pressez Q pour quitter.
+    * Généralement, pour désactiver un service du démarrage, décochez ses cases dans les colonnes 2 à 5. Pour le réactiver, recochez ses cases 2 à 5. 
+
+
+#=========================#
+' 17 - Nettoyer les menus '
+#=========================#
+
+Faire un clic droit sur le menu 'Applications' :
+Dans le menu déroulant --> 'Editer les menus'
+Dans la fenêtre qui apparaît adapter en cochant ou décochant les diverses options pour ne garder que les options utilisées.
+Accessoires :
+	[x] Calculatrice
+	[x] Capture d'écran
+	[x] Editeur de texte Gedit
+	[x] Terminal
+
+Bureautique :
+	[x] LibreOffice
+	[x] LibreOffice Base
+	[x] LibreOffice Calc
+	[x] LibreOffice Draw
+	[x] LibreOffice Impress
+	[x] LibreOffice Math
+	[x] LibreOffice writer
+
+Education :
+	[x] Klavaro
+
+Graphisme :
+	[x] Editeur d'images Gimp
+	[x] Gestionnaire de photos F-spot
+
+Internet :
+	[x] Client BitTorrent transmission
+	[x] Messagerie Thunderbird
+	[x] Navigateur web firefox
+
+Jeux :
+	[x]
+	[x]
+	[x]
+	[x]
+
+Outils système :
+	[x] Editeur de configuration
+
+Son et vidéo :
+	[x] Gravure de disque Brasero
+	[x] Lecteur de musique Rhythmbox
+	[x] Lecteur multimedia vlc
+	[x] Lecteur vidéo
+
+
+#==================================================#
+' 18 - Configuration du tableau de bord suppérieur '
+#==================================================#
+
+'Partie droite'
+#-------------#
+La présentation par défaut ne me convient pas.
+
+Par clic droit sur les éléments, je supprime :
+---------------------------------------------
+
+	- Le bouton d'extinction. (cela supprime également le bouton de changement d'utilisteur)
+	- Paramétrage de l'affichage de l'horloge
+		Je garde l'affichage de l'heure seule
+	- Suppression du bouton d'accès au notification de courrier (envelloppe)
+		En même temps que celui-ci le bouton du son est supprimé.
+
+
+On dispose actuellement de l'heure seule sur la droite du tableau de bord
+
+On rajoute des éléments (par clic droit sur le tableau de bord)
+---------------------------------------------------------------
+
+	Ajouter au tableau de bord...
+		- Eteindre
+		- Fermer la session...
+
+Pour retrouver le réglage du son
+--------------------------------
+
+Il faut utiliser l’application gnome-volume-control-applet.
+C'est le contrôle qui était présent sous Ubuntu 9.10.
+il suffit de taper dans un terminal:
+
+# gnome-volume-control-applet &
+
+Lancement au démarrage
+	System
+		Préférences
+			Applications au démarrage
+				Ajouter
+					Nom :		Réglage son
+					Commande :	/usr/bin/gnome-volume-control-applet
+					Commentaire :	Bouton réglage son
+
+Au prochain démarrage le bouton sera en place
+
+Organisation des boutons
+------------------------
+
+	A droite :	Extinction
+	puis :		Changement utilisateur
+	puis :		Heure
+	puis :		Connection réseau
+	puis :		Réglage son
+
+'Partie gauche'
+#-------------#
+
+Suppression de tous les boutons à droite de "Système"
+	Ajout :
+		- Thunderbird
+		- Firefox
+		- Terminal
+
+
+#==========================#
+' 19 - Réglages graphiques '
+#==========================#
+
+Clic droit sur Applications
+	Editer les menus
+	--> Administration
+		Conserver uniquement
+			[x] Date et heure
+			[x] Gestionnaire de paquets Synaptic
+			[x] Impression
+			[x] Nettoyage du système (optionnel)
+			[x] Pilotes de périphériques
+			[x] Sources de logiciels
+			[x] Utilitaire de disque
+
+	--> Préférences
+		Conserver uniquement
+			[x] Apparence
+			[x] Applications au démarrage
+			[x] Son
+			[x] Souris
+
+
+#=============#
+' 20 - Divers '
+#=============#
+
+Appliquer mes paramètres à conky
+Se placer dans le dossier habituel :
+# cd /usr/share/ubuntu1004/1004/config/regis
+# Lancer le script
+# ./install_conky.sh
+
+Tester conky :
+$ conky &
+Si l'affichage convient, il faut l'ajouter dans les programmes au démarrage :
+	Système
+		Préférences
+			Applications au démarrage
+			Ajout
+				- Nom :	Conky
+				- /usr/bin/conky
+				- Description :	Maintenance
+
+
+#======================#
+' 21 - Réglages divers '
+#======================#
+Effectuer les réglages de chaques programmes
+LibreOffice			Ajout du correcteur gramatical		
+								wget http://extensions.libreoffice.org/extension-center/grammalecte/releases/0.1.2/grammalecte-v0.1.2.oxt
+								Suivre le lien lors de l'installation pour installer le dictionnaire Français.
+
+Firefox					Ajout de Adblock plus
+								Préférences
+Thunderbird			Ajout de Lightning
+								Préférences
+Scribus					Réglage préférences
+Inkscape				Réglage préférences
+Gimp						Réglage préférences fenêtres
+
+
+#=======================================#
+' 22 - Pour terminer un petit nettoyage '
+#=======================================#
+
+	# cd /usr/share/ubuntu1004/1004/config/regis/
+	# ./nettoyage.sh
+	script Nettoyage UBUNTU
+	Cache (/var/cache/apt/archives) Paquets supprimés OK
+	Suppression de la CORBEILLE vide. OK
+	Suppression des fichiers temporaires du dossier HOME terminant par ~ terminé. OK
+	TERMINÉ
+
+Gain de place dans la machine de test : 500 Mo
+
+
+#================================================#
+' 23 - Et enfin supprimer les paquests orphelins '
+#================================================#
+
+Pour dérroger à nos habitudes nous allons travailler en graphique
+	Lancer Synaptic
+		Recherher le paquet : deborphan
+		L'installer
+
+Sans quitter Synaptic,
+	Menu Configuration
+		Filtres
+			Dans la fenêtre subséquente,
+			Cliquez sur nouveau et nommez le filtre "Paquets orphelins"
+			Dans la partie droite laissez seulement coché la case : orphelins
+			Validez
+
+Dans la colonne de gauche, sélectionnez
+			"Filtes personnalisés"
+			puis
+			"Paquets orphelins"
+			Sélectionnez le premier paquet dans la partie droite
+			puis après avoir enfoncé la touche "shift", cliquez sur le dernier paquet.
+			Clic droit "Sélectionner pour suppression complète"
+			Appliquez
+			A la fin de l'élimination de paquets, il se peut qu'une nouvelle liste apparaisse
+			Recommencez l'opération jusqu'à ce que la partie droite soit vide.
+Quittez Synaptic
+
+Fin - Avril 2012

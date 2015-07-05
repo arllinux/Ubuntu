@@ -1,0 +1,38 @@
+#-----<+++>----------
+Source : http://www.6ma.fr/astuce/demarrer+arreter+service+sous+linux-126
+-------------------------------------------------------------------------
+
+Sous Linux, pour démarrer un service vous pouvez utiliser cette commande sur toutes les distributions à priori :
+
+- /etc/rc.d/init.d/sound start
+
+Où "apache" est le nom du service a démarrer. Si vous remplacez "start" par "stop" ou "restart", vous pouvez respectivement arrêter ou redémarrer un service. Toutefois comme la ligne de commande est peu longue, vous pouvez faire la même en général avec ces commandes :
+
+Sur la plupart des distributions Linux (mandriva, red hat, ...) :
+
+- service apache stop
+
+Sur Debian, Ubuntu :
+
+- invoke-rc.d apache stop
+
+#-----<+++>---------------------------------------------------------------
+
+Source : http://ubuntuauquotidien.wordpress.com/2010/01/29/stopper-ou-redemarrer-un-service-sous-ubuntu/
+---------------------------------------------------------------------------------------------------------
+
+Parfois, dans le cadre de manipulations spécifiques, vous  pouvez être amené à agir sur les services de votre ordinateur.
+
+Deux méthodes existent :
+
+1/ Soit vous tapez dans le terminal :
+
+sudo service nom_du_service action
+
+Les actions pouvant alors  être start, stop, restart ou status.
+
+Exemple :  sudo service apache2 stop
+
+Pour avoir la liste des services disponibles faite dans votre console
+
+sudo service <tab><tab>
